@@ -130,7 +130,7 @@ export const themeSettings = (mode) => {
     const colors = tokens(mode);
 
     return {
-        colorsetting: {
+        palette: {
             mode: mode,
             ...(mode === 'dark'
             ? {
@@ -165,7 +165,7 @@ export const themeSettings = (mode) => {
                 },
             }),
         },
-        typograph: {
+        typography: {
             fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
             fontSize: 12,
             h1: {
@@ -205,7 +205,8 @@ export const useMode = () => {
     const [mode, setMode] = useState("dark");
 
     const colorMode = useMemo(
-        () => ({
+        () => (
+            {
             toggleColorMode: () =>
                 setMode((prev) => (prev === "light" ? "dark" : "light")),
         }),
