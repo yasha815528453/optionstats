@@ -1,6 +1,7 @@
 from database import methods
 from tdamodule import tdamethods
 
+
 def initialize():
     records = methods.getETF()
     for stock in records:
