@@ -9,6 +9,7 @@ __pycache__/
 
 # Other files and folders
 .settings/
+backend/tdamodule/toke.py
 
 # Executables
 *.swf

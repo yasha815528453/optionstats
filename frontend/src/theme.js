@@ -29,15 +29,15 @@ export const tokens = (mode) => ({
         },
 
         greenAccent: {
-            100: "#dbf5ee",
-            200: "#b7ebde",
-            300: "#94e2cd",
-            400: "#70d8bd",
+            100: "#0f2922",
+            200: "#1e5245",
+            300: "#2e7c67",
+            400: "#3da58a",
             500: "#4cceac",
-            600: "#3da58a",
-            700: "#2e7c67",
-            800: "#1e5245",
-            900: "#0f2922",
+            600: "#70d8bd",
+            700: "#94e2cd",
+            800: "#b7ebde",
+            900: "#32ed4e",
         },
         redAccent: {
             100: "#f8dcdb",
@@ -87,15 +87,15 @@ export const tokens = (mode) => ({
         },
 
         greenAccent: {
-            100: "#0f2922",
-            200: "#1e5245",
-            300: "#2e7c67",
-            400: "#3da58a",
+            100: "#dbf5ee",
+            200: "#b7ebde",
+            300: "#94e2cd",
+            400: "#70d8bd",
             500: "#4cceac",
-            600: "#70d8bd",
-            700: "#94e2cd",
-            800: "#b7ebde",
-            900: "#dbf5ee",
+            600: "#3da58a",
+            700: "#2e7c67",
+            800: "#1e5245",
+            900: "#0a9900",
         },
         redAccent: {
             100: "#2c100f",
@@ -161,7 +161,7 @@ export const themeSettings = (mode) => {
                     light: colors.grey[100],
                 },
                 background: {
-                    default: "#fcfcfc",
+                    default: "#f9f9f9",
                 },
             }),
         },
@@ -182,7 +182,7 @@ export const themeSettings = (mode) => {
             },
             h4: {
                 fontFamily: ["Source Sans Pro", "sans-serif"].join(","),
-                fontSize: 20,
+                fontSize: 18,
             },
             h5: {
                 fontFamily: ["Source Sans Pro", "sans-serif"].join(","),

@@ -15,6 +15,34 @@ body,
   position: relative;
 }
 
+.MuiDataGrid-cellWrap {
+  display: flex;
+  align-items: center;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  font-size: medium;
+}
+
+.MuiDataGrid-large {
+  font-size: large;
+  display: flex;
+  align-items: center;
+  white-space: normal;
+}
+
+.MuiDataGrid-medium {
+  font-size: medium;
+  display: flex;
+  align-items: center;
+  white-space: normal;
+}
+
+
+.content {
+  overflow-y:auto;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }

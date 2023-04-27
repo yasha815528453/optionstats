@@ -11,7 +11,7 @@ const Topbar = () => {
     const colors = themeSettings()
     const colorMode = useContext(ColorModeContext);
 
-    return <Box display="flex"  justifyContent="right" p={4}>
+    return <Box display="flex"  justifyContent="right" marginTop={"2vh"} marginRight={"8vh"}>
         <Box display="flex">
             <IconButton onClick={colorMode.toggleColorMode}>
                 {theme.palette.mode === 'light' ? (
