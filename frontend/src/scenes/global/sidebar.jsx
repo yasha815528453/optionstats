@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
+import { ProSidebar, Menu, MenuItem, SidebarFooter } from "react-pro-sidebar";
 import 'react-pro-sidebar/dist/css/styles.css';
 import { Box, IconButton, Typography, useTheme } from '@mui/material';
 import { Link } from "react-router-dom";
@@ -11,8 +11,8 @@ import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
 import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
 import ShowChartOutlinedIcon from '@mui/icons-material/ShowChartOutlined';
-import InterestsOutlinedIcon from '@mui/icons-material/InterestsOutlined';
-import TungstenOutlinedIcon from '@mui/icons-material/TungstenOutlined';
+import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
+import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined';
 
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -46,7 +46,6 @@ const Sidebar = () => {
             sx={{
                 "& .pro-sidebar-inner": {
                     background: `${colors.primary[900]} !important`,
-
                 },
                 "& .pro-icon-wrapper": {
                     backgroundColor: "transparent !important",
@@ -60,6 +59,7 @@ const Sidebar = () => {
                 "& .pro-menu-item.active": {
                     color: "#6870fa !important",
                 },
+                height: "100%",
 
             }}
         >
@@ -91,7 +91,7 @@ const Sidebar = () => {
                         )}
 
                     </MenuItem>
-                <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+                <Box paddingLeft={isCollapsed ? undefined : "10%"} height={"82vh"}>
                     <Item
                         title="Overview"
                         to="/"
@@ -99,25 +99,10 @@ const Sidebar = () => {
                         selected={selected}
                         setSelected={setSelected}
                     />
-                    <Typography
-                    variant="h6"
-                    color={colors.grey[300]}
-                    sx={{ m: "15px 0 5px 20px" }}
-                    >
-                        Ranking
-                    </Typography>
-
                     <Item
-                        title="Individual ranking"
-                        to="/individualranking"
+                        title = "Option Ranking"
+                        to="/rankings"
                         icon={<AssessmentOutlinedIcon fontSize="large"/>}
-                        selected={selected}
-                        setSelected={setSelected}
-                    />
-                    <Item
-                        title="Sector ranking"
-                        to="/sectorranking"
-                        icon={<TableChartOutlinedIcon fontSize="large"/>}
                         selected={selected}
                         setSelected={setSelected}
                     />
@@ -128,30 +113,43 @@ const Sidebar = () => {
                     >
                         Insights
                     </Typography>
-
                     <Item
-                        title="Macro insights"
-                        to="/macro"
+                        title="Sector performance"
+                        to="/sectorranking"
+                        icon={<TableChartOutlinedIcon fontSize="large"/>}
+                        selected={selected}
+                        setSelected={setSelected}
+                    />
+                    <Item
+                        title="Expectations"
+                        to="/expectations"
                         icon={<ShowChartOutlinedIcon fontSize="large"/>}
                         selected={selected}
                         setSelected={setSelected}
                     />
                     <Item
-                        title="something interesting"
-                        to="/interesting"
-                        icon={<InterestsOutlinedIcon fontSize="large"/>}
+                        title="Visualize"
+                        to="/country"
+                        icon={<PublicOutlinedIcon fontSize="large"/>}
                         selected={selected}
                         setSelected={setSelected}
                     />
-                    <Item
-                        title="maybe one more"
-                        to="/idk"
-                        icon={<TungstenOutlinedIcon fontSize="large"/>}
-                        selected={selected}
-                        setSelected={setSelected}
-                    />
-                </Box>
 
+                </Box>
+                <SidebarFooter>
+                    <Menu>
+                        <MenuItem>
+                            <Item
+                                title="FAQ page"
+                                to="/FAQ"
+                                icon={<QuestionAnswerOutlinedIcon fontSize="medium"/>}
+                                selected={selected}
+                                setSelected={setSelected}
+                            />
+                        </MenuItem>
+                    </Menu>
+
+                </SidebarFooter>
 
 
                 </Menu>
