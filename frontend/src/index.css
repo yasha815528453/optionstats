@@ -58,3 +58,55 @@ body,
 ::-webkit-scrollbar-track:hover {
   background-color: #555;
 }
+
+.pretty-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.stats-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.stat-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-weight: bold;
+}
+
+.ranking-container {
+  width: 100%;
+}
+
+.ranking-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.ranking-item {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 5px;
+}

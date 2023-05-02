@@ -138,11 +138,41 @@ sql = '''CREATE TABLE stockaggre(
     totalputdollar INT NOT NULL,
     volatility float NOT NULL,
     avgvola float NOT NULL,
+    itmotmcratio float NOT NULL,
+    itmotmpratio float NOT NULL,
+    itmotmcdollarratio float NOT NULL,
+    itmotmpdollarratio float NOT NULL,
+    itmotmcoiratio float NOT NULL,
+    itmotmpoiratio float NOT NULL,
     PRIMARY KEY (SYMBOLS)
     )'''
 cursorinstance.execute(sql)
 
 #dateaggregated table
+
+sql = '''CREATE TABLE overallstats(
+    totalotmcall INT NOT NULL,
+    totalotmput INT NOT NULL,
+    totalitmcall INT NOT NULL,
+    totalitmput INT NOT NULL,
+    totalotmcoi INT NOT NULL,
+    totalotmpoi INT NOT NULL,
+    totalitmcoi INT NOT NULL,
+    totalotmpoi INT NOT NULL,
+    totalitmpoi INT NOT NULL,
+    totaldollar INT NOT NULL,
+    avgtotalotmcall FLOAT NOT NULL,
+    avgtotalotmput FLOAT NOT NULL,
+    avgtotalitmcall FLOAT NOT NULL,
+    avgtotalitmput FLOAT NOT NULL,
+    avgtotalotmcoi FLOAT NOT NULL,
+    avgtotalotmpoi FLOAT NOT NULL,
+    avgtotalitmcoi FLOAT NOT NULL,
+    avgtotalotmpoi FLOAT NOT NULL,
+    avgtotalitmpoi FLOAT NOT NULL,
+    avgtotaldollar FLOAT NOT NULL
+)'''
+cursorinstance.execute(sql)
 
 sql = '''CREATE TABLE dstock(
     record_date DATE NOT NULL,
@@ -151,6 +181,14 @@ sql = '''CREATE TABLE dstock(
     pcdiff float NOT NULL,
     callvol INT NOT NULL,
     putvol INT NOT NULL
+)'''
+cursorinstance.execute(sql)
+
+sql = '''CREATE TABLE oitable(
+    symbol CHAR(5) NOT NULL,
+    compiledate CHAR(8) NOT NULL,
+    position INT NOT NULL,
+    openinterest INT NOT NULL
 )'''
 cursorinstance.execute(sql)
 

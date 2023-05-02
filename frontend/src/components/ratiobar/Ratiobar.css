@@ -1,0 +1,16 @@
+.progress-bar {
+    display: flex;
+    width: 10vh; /* Fixed width */
+    height: 2vh; /* Fixed height */
+    background-color: #eee;
+  }
+  
+  .progress-variable1 {
+    background-color: red; /* Red on the left */
+    height: 100%;
+  }
+  
+  .progress-variable2 {
+    background-color: green; /* Green on the right */
+    height: 100%;
+  }

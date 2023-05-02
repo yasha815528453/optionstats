@@ -307,9 +307,12 @@ def dateAggregate(connection):
     callvolume = 0
     putvolume = 0
     denominator = 0
+    todaystring = month+'-'+day+'-'+year
     sql = "INSERT INTO dstock (record_date, symbol, compiledate, pcdiff, callvol, putvol) VALUES (%s, %s, %s, %s, %s, %s)"
+    sql2 = "INSERT INTO oitable (symbol, compiledate, position, openinterest) VALUES (%s, %s, %s, %s)"
     for i in range(len(options)):
         try:
+            
             if prevexpiration == options[i]['daysToExpiration']:
                 datetoinsert = options[i]['optionkey'].split("_")[1][0:6]
                 datetoinsert = datetoinsert[0:2]+'-'+datetoinsert[2:4]+'-'+datetoinsert[4:6]
@@ -321,7 +324,8 @@ def dateAggregate(connection):
                     callvolume += options[i]['volume']
                     delta = options[i]['delta']
                     gamma = options[i]['gamma']
-                    option_list = [market, strike, rho, delta, gamma]
+                    oi = options[i]['openinterest']
+                    option_list = [market, strike, rho, delta, gamma, oi]
                     call_list.append(option_list)
 
                 else:
@@ -331,9 +335,10 @@ def dateAggregate(connection):
                     rho = options[i]['rho']
                     delta = options[i]['delta']
                     gamma = options[i]['gamma']
-                    option_list = [market, strike, rho, delta, gamma]
+                    oi = options[i]['openinterest']
+                    option_list = [market, strike, rho, delta, gamma, oi]
                     put_list.append(option_list)
-
+                
             else:
                 prevexpiration = options[i]['daysToExpiration']
                 if not call_list:
@@ -351,6 +356,12 @@ def dateAggregate(connection):
                 for z in range(len(call_list)):
                     price_diff += change_price(call_list[z][0], call_list[z][3], call_list[z][4], call_list[z][2])
                     price_diff -= change_price(put_list[-z-1][0], put_list[-z-1][3], put_list[-z-1][4], put_list[-z-1][2])
+                    if datetoinsert==(todaystring):
+                        pass
+                    else:
+                        openint = call_list[z][5] - put_list[z][5]
+                        execute(sql2, (prevstock, datetoinsert, z, openint))
+                
                 #use call_list and put_list
                 closingprice = getclosingprice(options[i]['SYMBOLS'], options[i]['isetf'] == 'Y', connection)
                 if (price_diff/denominator) < -closingprice:
@@ -363,7 +374,7 @@ def dateAggregate(connection):
                 put_list = []
                 ## GET THE MAX BETWEEN PRICE/DIFF AND PRICE
 
-                if datetoinsert==(month+'-'+day+'-'+year):
+                if datetoinsert==(todaystring):
                     price_diff = 0
                     callvolume = 0
                     putvolume = 0
@@ -371,6 +382,7 @@ def dateAggregate(connection):
                     prevstock = options[i]['SYMBOLS']
                     continue
                 datatoinsert = (date.today(), prevstock, datetoinsert, price_diff_insert, callvolume, putvolume)
+                execute(sql, datatoinsert, connection)
                 datetoinsert = options[i]['optionkey'].split("_")[1][0:6]
                 datetoinsert = datetoinsert[0:2]+'-'+datetoinsert[2:4]+'-'+datetoinsert[4:6]
                 price_diff = 0
@@ -378,6 +390,8 @@ def dateAggregate(connection):
                 putvolume = 0
                 denominator = 1
                 prevstock = options[i]['SYMBOLS']
+
+
 
         except Exception as e:
             print(e)
@@ -390,6 +404,19 @@ def dateAggregate(connection):
 # creates 2 tables with top 100 up and down.
 def stockAggregate(connection):
     cursorinstance = connection.cursor()
+    itmcall = 0
+    otmcall = 0
+    itmput = 0
+    otmput = 0
+    itmcalldollar = 0
+    otmcalldollar = 0
+    itmputdollar = 0
+    otmputdollar = 0
+    itmcalloi = 0
+    otmcalloi = 0
+    itmputoi = 0
+    otmputoi = 0
+    
     sql = "select * from options ORDER BY SYMBOLS ASC" # get stock symbols, then select * with symbol.
     cursorinstance.execute(sql)
     today = str(date.today().year) + '-' + str(date.today().month) + '-' + str(date.today().day)
@@ -415,9 +442,27 @@ def stockAggregate(connection):
     worst_put_perf_date = today
     denominator = 0
     voldenom = 0
+    totalotmcall = 0
+    totalotmput = 0
+    totalitmcall = 0
+    totalitmput = 0
+    totalotmcoi = 0
+    totalotmpoi = 0
+    totalitmcoi = 0
+    totalitmpoi = 0
+    totaldollar = 0 
     volatility = 0
     putperf = 0
     type = 'E' if records[0]['isetf'] == 'Y' else 'S'
+    sqlstockprice = '''
+    SELECT closingprice FROM tickerss WHERE SYMBOLS = %s
+    UNION
+    SELECT closingprice FROM tickerse WHERE SYMBOLS = %s
+    '''
+    cursorinstance.execute(sqlstockprice, (prevstock, prevstock))
+    result = cursorinstance.fetchone()
+
+    stockprice = result[0]
     for i in range(len(records)):
 
         if prevstock == records[i]['SYMBOLS']:
@@ -426,8 +471,8 @@ def stockAggregate(connection):
 
             totalvolume += records[i]['volume']
             if records[i]['volume'] != 0:
-                volatility += records[i]['volatility']
-                voldenom += 1
+                volatility += records[i]['volatility']*records[i]['volume']
+                voldenom += records[i]['volume']
             if records[i]['volume'] >= 10:
                 if records[i]['type'] == 'C':
                     if records[i]['upperformance'] > best_call_perf:
@@ -442,6 +487,20 @@ def stockAggregate(connection):
                         worstcall = records[i]['optionkey']
                     callperf += records[i]['upperformance']
                     totalcalldollar += records[i]['volume'] * (records[i]['highPrice'] + records[i]['lowPrice'])/2
+                    if stockprice < records[i]['strikeprice']:
+                        totalotmcall += records[i]['volume']
+                        totalotmcoi += records[i]['openinterest']
+                        otmcall += records[i]['volume']
+                        totaldollar += (records[i]['highPrice'] + records[i]['lowPrice'])/2 * records[i]['volume']
+                        otmcalldollar += (records[i]['highPrice'] + records[i]['lowPrice'])/2 * records[i]['volume']
+                        otmcalloi += records[i]['openinterest']
+                    elif stockprice >= records[i]['strikeprice']:
+                        totalitmcall += records[i]['volume']
+                        totalitmcoi += records[i]['openinterest']
+                        itmcall += records[i]['volume']
+                        totaldollar += (records[i]['highPrice'] + records[i]['lowPrice'])/2 * records[i]['volume']
+                        itmcalldollar += (records[i]['highPrice'] + records[i]['lowPrice'])/2 * records[i]['volume']
+                        itmcalloi += records[i]['oi']
                 else:
                     if records[i]['upperformance'] > best_put_perf:
                         best_put_perf = records[i]['upperformance']
@@ -455,6 +514,21 @@ def stockAggregate(connection):
                         worstput = records[i]['optionkey']
                     putperf += records[i]['downperformance']
                     totalputdollar += records[i]['volume'] * (records[i]['highPrice'] + records[i]['lowPrice'])/2
+
+                    if stockprice < records[i]['strikeprice']:
+                        itmput += records[i]['volume']
+                        itmputdollar += (records[i]['highPrice'] + records[i]['lowPrice'])/2 * records[i]['volume']
+                        itmputoi += records[i]['openinterest']
+                        totalitmput += records[i]['volume']
+                        totalitmpoi += records[i]['openinterest']
+                        totaldollar += (records[i]['highPrice'] + records[i]['lowPrice'])/2 * records[i]['volume']
+                    elif stockprice >= records[i]['strikeprice']:
+                        otmput += records[i]['volume']
+                        totalotmput += records[i]['volume']
+                        totalotmpoi += records[i]['openinterest']
+                        otmputdollar += (records[i]['highPrice'] + records[i]['lowPrice'])/2 * records[i]['volume']
+                        otmputoi += records[i]['oi']
+                        totaldollar += (records[i]['highPrice'] + records[i]['lowPrice'])/2 * records[i]['volume']
 
             #add to volume and price and etc..   the best performing option, and the average performance of options; on both calls/puts.
             #add counter to divide later.
@@ -470,16 +544,16 @@ def stockAggregate(connection):
                 sqldata = get_records(sql, connection)
                 avgdollar = dollarestimate if len(sqldata)==0 else(sqldata[0]['avgdollar'] + dollarestimate)/2
                 if len(sqldata) == 0:
-                    sql = "INSERT INTO stockaggre (SYMBOLS, type, bcallkey, bcallperf, bcalldate, avgcall, worstcallperf, worstcalldate, worstcall, bputkey, bputperf, bputdate, avgput, worstputperf, worstputdate, worstput, volume, avgvolume, dollarestimate, avgdollar, totalcalldollar, totalputdollar, volatility, avgvola) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
-                    insertdata = (prevstock, type, bestcall, best_call_perf, best_call_perf_date, callperf/denominator, worst_call_perf, worst_call_perf_date, worstcall, bestput, best_put_perf, best_put_perf_date, putperf/denominator, worst_put_perf, worst_put_perf_date, worstput, totalvolume, avgvolume, dollarestimate, avgdollar, totalcalldollar, totalputdollar, volatility/voldenom, avgvola)
+                    sql = "INSERT INTO stockaggre (SYMBOLS, type, bcallkey, bcallperf, bcalldate, avgcall, worstcallperf, worstcalldate, worstcall, bputkey, bputperf, bputdate, avgput, worstputperf, worstputdate, worstput, volume, avgvolume, dollarestimate, avgdollar, totalcalldollar, totalputdollar, volatility, avgvola, itmotmcratio, itmotmpratio, itmotmcdollarratio, itmotmpdollarratio, itmotmcoiratio, itmotmpoiratio) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                    insertdata = (prevstock, type, bestcall, best_call_perf, best_call_perf_date, callperf/denominator, worst_call_perf, worst_call_perf_date, worstcall, bestput, best_put_perf, best_put_perf_date, putperf/denominator, worst_put_perf, worst_put_perf_date, worstput, totalvolume, avgvolume, dollarestimate, avgdollar, totalcalldollar, totalputdollar, volatility/voldenom, avgvola, itmcall/otmcall, itmput/otmput, itmcalldollar/otmcalldollar, itmputdollar/otmputdollar, itmcalloi/otmcalloi, itmputoi/otmputoi)
                     execute(sql, insertdata, connection)
                 elif dollarestimate < 5000:
                     sql = "UPDATE stockaggre SET bcallperf = %s, worstcallperf = %s, bputperf = %s, worstputperf = %s WHERE SYMBOLS = %s"
                     insertdata = (50, 50, 50, 50, prevstock)
                     execute(sql, insertdata, connection)
                 else:
-                    sql = "UPDATE stockaggre SET  bcallkey = %s, bcallperf = %s, bcalldate = %s, avgcall = %s, worstcallperf = %s, worstcalldate = %s, worstcall = %s, bputkey = %s, bputperf = %s, bputdate = %s, avgput = %s, worstputperf = %s, worstputdate = %s, worstput = %s, volume = %s, avgvolume = %s, dollarestimate = %s, avgdollar = %s, totalcalldollar = %s, totalputdollar = %s, volatility = %s, avgvola = %s WHERE SYMBOLS = %s"
-                    insertdata = (bestcall, best_call_perf, best_call_perf_date, callperf/denominator, worst_call_perf, worst_call_perf_date, worstcall, bestput, best_put_perf, best_put_perf_date, putperf/denominator, worst_put_perf, worst_put_perf_date, worstput, totalvolume, avgvolume, dollarestimate, avgdollar, totalcalldollar, totalputdollar, volatility/voldenom, avgvola, prevstock)
+                    sql = "UPDATE stockaggre SET  bcallkey = %s, bcallperf = %s, bcalldate = %s, avgcall = %s, worstcallperf = %s, worstcalldate = %s, worstcall = %s, bputkey = %s, bputperf = %s, bputdate = %s, avgput = %s, worstputperf = %s, worstputdate = %s, worstput = %s, volume = %s, avgvolume = %s, dollarestimate = %s, avgdollar = %s, totalcalldollar = %s, totalputdollar = %s, volatility = %s, avgvola = %s, itmotmcratio = %s, itmotmpratio = %s, itmotmcdollarratio = %s, itmotmpdollarratio = %s, itmotmcoiratio = %s, itmotmpoiratio = %s WHERE SYMBOLS = %s"
+                    insertdata = (bestcall, best_call_perf, best_call_perf_date, callperf/denominator, worst_call_perf, worst_call_perf_date, worstcall, bestput, best_put_perf, best_put_perf_date, putperf/denominator, worst_put_perf, worst_put_perf_date, worstput, totalvolume, avgvolume, dollarestimate, avgdollar, totalcalldollar, totalputdollar, volatility/voldenom, avgvola, itmcall/otmcall, itmput/otmput, itmcalldollar/otmcalldollar, itmputdollar/otmputdollar, itmcalloi/otmcalloi, itmputoi/otmputoi, prevstock)
                     execute(sql, insertdata, connection)
             except Exception as e:
                 print(sql)
@@ -487,12 +561,36 @@ def stockAggregate(connection):
             prevstock = records[i]['SYMBOLS']
             denominator = 1
             totalvolume = records[i]['volume']
-            volatility = records[i]['volatility']
-            voldenom = 1
+            volatility = records[i]['volatility']*records[i]['volume']
+            voldenom = records[i]['volume']
             type = 'E' if records[i]['isetf'] == 'Y' else 'S'
+            
             dollarestimate = records[i]['volume'] * (records[i]['highPrice'] + records[i]['lowPrice'])/2
-            if records[i]['type'] == 'C':
 
+            cursorinstance.execute(sqlstockprice, (prevstock, prevstock))
+            result = cursorinstance.fetchone()
+            stockprice = result[0]
+            itmcall = 0
+            otmcall = 0
+            itmput = 0
+            otmput = 0
+            itmcalldollar = 0
+            otmcalldollar = 0
+            itmputdollar = 0
+            otmputdollar = 0
+            itmcalloi = 0
+            otmcalloi = 0
+            itmputoi = 0
+            otmputoi = 0
+            if records[i]['type'] == 'C':
+                if stockprice < records[i]['strikeprice']:
+                    otmcall += records[i]['volume']
+                    otmcalldollar += (records[i]['highPrice'] + records[i]['lowPrice'])/2 * records[i]['volume']
+                    otmcalloi += records[i]['openinterest']
+                elif stockprice >= records[i]['strikeprice']:
+                    itmcall += records[i]['volume']
+                    itmcalldollar += (records[i]['highPrice'] + records[i]['lowPrice'])/2 * records[i]['volume']
+                    itmcalloi += records[i]['oi']
                 best_call_perf = records[i]['upperformance']
                 best_call_perf_date = records[i]['absLDate']
                 bestcall = records[i]['optionkey']
@@ -511,8 +609,14 @@ def stockAggregate(connection):
                 putperf = 0
                 totalputdollar = 0
             else:
-
-
+                if stockprice < records[i]['strikeprice']:
+                    itmput += records[i]['volume']
+                    itmputdollar += (records[i]['highPrice'] + records[i]['lowPrice'])/2 * records[i]['volume']
+                    itmputoi += records[i]['openinterest']
+                elif stockprice >= records[i]['strikeprice']:
+                    otmput += records[i]['volume']
+                    otmputdollar += (records[i]['highPrice'] + records[i]['lowPrice'])/2 * records[i]['volume']
+                    otmputoi += records[i]['oi']
                 best_put_perf = records[i]['upperformance']
                 best_put_perf_date = records[i]['absLDate']
                 bestput = records[i]['optionkey']
@@ -531,6 +635,25 @@ def stockAggregate(connection):
                 worstcall = ""
                 callperf = 0
                 totalcalldollar = 0
+    sqlfinal = "SELECT * from overallstats"
+    cursorinstance.execute(sql)
+    records = cursorinstance.fetchall()
+    deleteALL("overallstats", connection)
+    if len(records) == 0:
+        datatoinsert = (totalotmcall, totalotmput, totalitmcall, totalitmput, totalotmcoi, totalitmcoi, totalotmpoi, totalitmpoi, 
+                        totaldollar, totalotmcall, totalotmput, totalitmcall, totalitmput, totalotmcoi, totalitmcoi, totalotmpoi, 
+                        totalitmpoi, totaldollar)
+    else:
+        datatoinsert = (totalotmcall, totalotmput, totalitmcall, totalitmput, totalotmcoi, totalitmcoi, totalotmpoi, totalitmpoi, 
+                        totaldollar, (records[0]['avgtotalotmcall']+totalotmcall)/2, (records[0]['avgtotalotmput']+totalotmput)/2, 
+                        (records[0]['avgtotalitmcall']+totalitmcall)/2, (records[0]['avgtotalitmput']+totalitmput)/2, 
+                        (records[0]['avgtotalotmcoi']+totalotmcoi)/2, (records[0]['avgtotalotmpoi']+totalotmpoi)/2, 
+                        (records[0]['avgtotalitmcoi']+totalitmcoi)/2, (records[0]['avgtotalitmpoi']+totalitmpoi)/2, 
+                        (records[0]['avgtotaldollar']+totaldollar)/2) 
+    sqlfinal = '''INSERT INTO overallstats (totalotmcall, totalotmput, totalitmcall, totalitmput, totalotmcoi,totalitmcoi,totalotmpoi,totalitmpoi,totaldollar,avgtotalotmcall,
+    avgtotalotmput,avgtotalitmcall,avgtotalitmput,avgtotalotmcoi,avgtotalotmpoi,avgtotalitmcoi,avgtotalitmpoi,avgtotaldollar) VALUES 
+    (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'''
+    execute(sqlfinal, datatoinsert, connection)
 
 def keybreakdown(key):
     underscore_index = key.index("_") + 1
