@@ -25,7 +25,7 @@ if marketopen:
         connection = DBmethods.acquire_connection()
         DBmethods.deleteExpired(connection)
         DBmethods.decrementExpday(connection)
-        # update
+
         records = DBmethods.getETF(connection)
         for stock in records:
             tdamethods.updateOptionData(stock['SYMBOLS'], stock['OptionSize'], True)
@@ -39,6 +39,7 @@ if marketopen:
         # the price of the stock
         DBmethods.dateAggregate(connection)
         DBmethods.sector_perf_aggre(connection)
+        DBmethods.new_timestamp(connection)
     finally:
         DBmethods.release_connection(connection)
         #call the function that create the table.

@@ -5,6 +5,27 @@ from flask import jsonify
 
 app = Flask("OPTIONSTATS")
 
+@app.route('/api/overallstats')
+def get_overallstats():
+    try:
+        connection = DBmethods.acquire_connection()
+        stats = DBmethods.get_overallstats(connection)
+
+        return stats
+    finally:
+        DBmethods.release_connection(connection)
+
+@app.route('/api/top10/<order>/<value>')
+def get_topten(order, value):
+    try:
+        connection = DBmethods.acquire_connection()
+        top10 = DBmethods.get_topten(connection, order, value)
+
+        return top10
+    finally:
+        DBmethods.release_connection(connection)
+
+
 @app.route('/api/sectors')
 def get_sectors():
     try:
@@ -29,6 +50,15 @@ def gettable(table):
         print("releasing connection back to pool")
         DBmethods.release_connection(connection)
 
+@app.route('/api/timestamp')
+def getTime():
+    try:
+        connection = DBmethods.acquire_connection()
+        timestamp = DBmethods.get_timestamp(connection)
+        return timestamp
+    finally:
+        DBmethods.release_connection(connection)
+
 @app.route('/api/expectation/<symbol>')
 def get_expectation(symbol):
     try:
@@ -44,6 +74,16 @@ def get_expectation(symbol):
         print(e)
     finally:
         DBmethods.release_connection(connection)
+
+@app.route('/api/oitable/<symbol>')
+def get_oitable(symbol):
+    try:
+        connection = DBmethods.acquire_connection()
+        oitable = DBmethods.get_oitable(symbol, connection)
+        return oitable
+    finally:
+        DBmethods.release_connection(connection)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

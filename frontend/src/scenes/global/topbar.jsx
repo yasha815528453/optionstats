@@ -20,7 +20,10 @@ const Topbar = () => {
                     <LightModeOutlinedIcon />
                 )}
             </IconButton>
-            <IconButton>
+            <IconButton onClick={() => {
+                    const element = document.getElementById("disclaimer");
+                    element.scrollIntoView({behavior: "smooth"});
+                }}>
                 <FeedbackOutlinedIcon />
             </IconButton>
         </Box>

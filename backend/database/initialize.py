@@ -27,7 +27,7 @@ cursorinstance = connection.cursor()
 ## 2 main tables
 ## tickers table,
 
-#normal stocks
+# #normal stocks
 sql = '''CREATE TABLE tickersS(
     SYMBOLS CHAR(5) NOT NULL,
     SECTORS VARCHAR(255) NOT NULL,
@@ -130,6 +130,10 @@ sql = '''CREATE TABLE stockaggre(
     worstputperf float NOT NULL,
     worstputdate DATE NOT NULL,
     worstput VARCHAR(255) NOT NULL,
+    callvolume INT NOT NULL,
+    putvolume INT NOT NULL,
+    calloi INT NOT NULL,
+    putoi INT NOT NULL,
     volume INT NOT NULL,
     avgvolume INT NOT NULL,
     dollarestimate INT NOT NULL,
@@ -158,7 +162,6 @@ sql = '''CREATE TABLE overallstats(
     totalotmcoi INT NOT NULL,
     totalotmpoi INT NOT NULL,
     totalitmcoi INT NOT NULL,
-    totalotmpoi INT NOT NULL,
     totalitmpoi INT NOT NULL,
     totaldollar INT NOT NULL,
     avgtotalotmcall FLOAT NOT NULL,
@@ -168,7 +171,6 @@ sql = '''CREATE TABLE overallstats(
     avgtotalotmcoi FLOAT NOT NULL,
     avgtotalotmpoi FLOAT NOT NULL,
     avgtotalitmcoi FLOAT NOT NULL,
-    avgtotalotmpoi FLOAT NOT NULL,
     avgtotalitmpoi FLOAT NOT NULL,
     avgtotaldollar FLOAT NOT NULL
 )'''
@@ -286,3 +288,5 @@ cursorinstance.execute(sql)
 sql = '''CREATE TABLE miscellaneous(
     timestamp VARCHAR(255) NOT NULL
 )'''
+
+cursorinstance.execute(sql)

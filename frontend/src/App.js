@@ -5,9 +5,10 @@ import Rankings from "./scenes/rankings"
 import Overview from "./scenes/overview"
 import Topbar from './scenes/global/topbar';
 import Sidebar from "./scenes/global/sidebar"
+import Disclaimer from './scenes/global/disclaimer';
 import Sectors from "./scenes/sectors"
 import Expectationschart from './scenes/expectation';
-import Countrymap from './scenes/country';
+import Faq from './scenes/faq';
 // import winners from "./scenes/winners"
 // import insights from "./scenes/insights"
 // import charting from "./scenes/charting" // maybe dont need? idk.. can expand
@@ -30,8 +31,9 @@ function App() {
             <Route path="/rankings" element={<Rankings />} />
             <Route path="/sectorranking" element={<Sectors />} />
             <Route path="/expectations" element={<Expectationschart />} />
-            <Route path="/country" element={<Countrymap />} />
+            <Route path="/FAQ" element={<Faq />} />
           </Routes>
+          <Disclaimer />
         </main>
       </div>
     </ThemeProvider>

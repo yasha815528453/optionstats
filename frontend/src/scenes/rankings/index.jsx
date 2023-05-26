@@ -11,6 +11,17 @@ const Rankings = () => {
   const colors = tokens(theme.palette.mode);
   const [data, setData] = useState([]);
   const [selectedComponent, setSelectedComponent] = useState(1);
+  const [timestamp, setTimestamp] = useState("");
+
+  useEffect(() => {
+      const fetchforData = async () => {
+          const response = await fetch(`/api/timestamp`);
+          const data = await response.json();
+          console.log(data);
+          setTimestamp(data[0]);
+      };
+      fetchforData();
+  }, []);
 
   const generalColumns = [
     { field: "SYMBOLS", headerName: "Ticker symbol",
@@ -197,9 +208,9 @@ const Rankings = () => {
         m="-20px 0 0 0"
         variant="h6"
         color={colors.grey[300]}>
-           Last Updated 2023-01-02 03:03 PDT End of day quote
+           Last Updated {timestamp.timestamp} PDT End of day quote
       </Typography>
-      <Box m="10px 0 0 50px" height="75vh" width="160vh">
+      <Box m="10px 0 0 0px" height="75vh" width="160vh">
         <Tabs value={selectedComponent - 1} onChange={handleTabChange} textColor="secondary" indicatorColor="secondary">
           <Tab label="Buyside calls" sx={{color:colors.grey[100]}}/>
           <Tab label="Buyside puts" sx={{color:colors.grey[100]}}/>

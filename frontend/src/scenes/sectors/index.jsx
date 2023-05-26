@@ -11,6 +11,19 @@ const Sectors = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [data, setData] = useState([]);
+    const [timestamp, setTimestamp] = useState("");
+
+
+
+    useEffect(() => {
+        const fetchforData = async () => {
+            const response = await fetch(`/api/timestamp`);
+            const data = await response.json();
+            console.log(data);
+            setTimestamp(data[0]);
+        };
+        fetchforData();
+    }, []);
 
     const generalColumns = [
         {
@@ -109,7 +122,7 @@ const Sectors = () => {
                 m="-20px 0 0 0"
                 variant="h6"
                 color={colors.grey[300]}>
-                Last Updated 2023-01-02 03:03 PDT End of day quote
+                Last Updated {timestamp.timestamp} PDT End of day quote
             </Typography>
 
             <Box m="10px 0 0 0px" height="75vh" width="100%" display="flex">

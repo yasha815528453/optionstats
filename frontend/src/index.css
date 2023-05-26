@@ -38,6 +38,13 @@ body,
   white-space: normal;
 }
 
+.MuiDataGrid-small {
+  font-size: small;
+  display: flex;
+  align-items: center;
+  white-space: normal;
+}
+
 
 .content {
   overflow-y:auto;
@@ -109,4 +116,8 @@ body,
   border: 1px solid #ccc;
   border-radius: 3px;
   margin-bottom: 5px;
+}
+
+.option-summary {
+  padding: 2vh;
 }

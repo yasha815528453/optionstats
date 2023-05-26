@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import { tokens } from "../theme";
 import { Typography, useTheme } from "@mui/material";
 
-const PcChart = ({symbol, backenddata}) => {
+const PcChart = ({symbol, backenddata, h, w}) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const options = {
@@ -23,7 +23,7 @@ const PcChart = ({symbol, backenddata}) => {
             data: ["today's projections", "projections 10 days ago", 'Call Volume', 'Put Volume'],
             orient: 'horizontal',
             right: 'center',
-            top: 70,
+            top: 30,
             itemGap: 20,
             textStyle: {
                 color: colors.grey[100],
@@ -40,9 +40,9 @@ const PcChart = ({symbol, backenddata}) => {
             }
         },
         grid: {
-            left: '10%',
+            left: '4%',
             right: '10%',
-            top: '20%',
+            top: '10%',
             bottom: '3%',
             containLabel: true
         },
@@ -136,9 +136,9 @@ const PcChart = ({symbol, backenddata}) => {
     };
 
     return (
-        <Box m="25px">
+        <Box>
             <ReactECharts option={options}
-                style = {{width:'125vh', height: '63vh'}}
+                style = {{width:w, height: h}}
             />
             {}
         </Box>
