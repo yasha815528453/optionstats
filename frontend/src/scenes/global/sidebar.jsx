@@ -127,14 +127,6 @@ const Sidebar = () => {
                         selected={selected}
                         setSelected={setSelected}
                     />
-                    <Item
-                        title="Visualize"
-                        to="/country"
-                        icon={<PublicOutlinedIcon fontSize="large"/>}
-                        selected={selected}
-                        setSelected={setSelected}
-                    />
-
                 </Box>
                 <SidebarFooter>
                     <Menu>

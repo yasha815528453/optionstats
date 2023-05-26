@@ -1,0 +1,31 @@
+.table-container {
+    border-collapse: collapse;
+    width: 100%;
+
+}
+
+.table-container th, .table-container td {
+
+    text-align: center;
+}
+
+.table-container .first-col {
+    min-width: 30%;
+    padding-bottom: 16px;
+}
+
+
+.table-container .sec-col {
+    width:30%;
+    display: 'flex';
+
+}
+
+.table-container .third-col {
+    width:30%;
+
+}
+
+.table-container .fourth-col {
+    width:20%;
+}

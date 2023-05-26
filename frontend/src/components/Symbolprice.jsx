@@ -1,5 +1,6 @@
 import { Box, IconButton, Typography, useTheme } from '@mui/material';
 import { tokens } from "../theme";
+import { useState, useEffect } from "react";
 
 const Symbol = ({ description, closingprice, pricechange, percentchange }) => {
     const theme = useTheme();
@@ -8,8 +9,19 @@ const Symbol = ({ description, closingprice, pricechange, percentchange }) => {
     pricechange = Math.abs(pricechange)
     const stockcolor = percentchange < 0 ? colors.redAccent[500] : colors.greenAccent[900];
     const sign = percentchange < 0 ? '-' : '+';
+    const [timestamp, setTimestamp] = useState("");
 
-    percentchange = Math.abs(percentchange)
+    percentchange = Math.abs(percentchange);
+
+    useEffect(() => {
+        const fetchforData = async () => {
+            const response = await fetch(`/api/timestamp`);
+            const data = await response.json();
+            console.log(data);
+            setTimestamp(data[0]);
+        };
+        fetchforData();
+    }, []);
 
     return (
         <Box width="45vh" >
@@ -60,7 +72,7 @@ const Symbol = ({ description, closingprice, pricechange, percentchange }) => {
                         variant = "h6"
                         color={colors.grey[300]}
                     >
-                        Last Updated 2023-01-02 03:03 PDT
+                        Last Updated {timestamp.timestamp} PDT
                         End of day quote
                     </Typography>
         </Box>
