@@ -20,25 +20,12 @@ def make_webdriver():
         # Import selenium here because it's slow to import
         from selenium import webdriver
 
-        driver = webdriver.Chrome("C:/Users/spam8/scanneranalyze/tdameri/chromedriver.exe")
+        driver = webdriver.Chrome("chromedriver.exe")
         atexit.register(lambda: driver.quit())
         return driver
 
 
 client = easy_client(toke.api_key, toke.redirect_url, toke.token_path, make_webdriver)
-
-
-def seeOptionChain(ticker):
-    time_change = datetime.timedelta(days=100)
-    data = client.get_option_chain(ticker, strike_count=40, from_date=date.today(), to_date=date.today() + time_change)
-    data = data.json()
-    for expdate, items in data['callExpDateMap'].items():
-        print(expdate)
-        for strikeprice, valuez in items.items():
-            if valuez[0]['delta'] == -999:
-                print(valuez[0])
-
-
 
 def initializeOptionData(symbol, strikesize, etf, datetoday, datetodayinsert, time_change, limiter):
     connection = DBmethods.acquire_connection()
@@ -244,7 +231,6 @@ def updateOptionData(symbol, strikesize, etf):
     lastputtheta = -0.04
     lastputrho = -0.05
     lastputtheor = 5
-
     lastcallvola = 30
     lastcalldelta = 0.45
     lastcallgamma =0.05
@@ -539,7 +525,6 @@ def updateOptionData(symbol, strikesize, etf):
         print(type(e))
         traceback.print_tb(e.__traceback__)
         print(data)
-        return 1
     finally:
         DBmethods.release_connection(connection1)
 
