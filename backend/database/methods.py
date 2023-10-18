@@ -8,6 +8,28 @@ import json
 import pymysqlpool
 import traceback
 from flask import jsonify
+import os
+
+
+class DbManager:
+
+    def __init__(self):
+        self.cursorType = pymysql.cursors.DictCursor
+        self.pool = pymysqlpool.ConnectionPool(
+            host= os.getenv('DB_HOST'),
+            user= os.getenv('DB_USER'),
+            password= os.getenv('DB_PASSWORD'),
+            database = os.getenv("DB_DATABASE"),
+            cursorclass= self.cursorType,
+            autocommit= True,
+            maxsize= 3
+        )
+
+    def acquire_connection(self):
+        return self.pool.get_connection()
+
+    def release_connection(self, connection):
+        connection.close()
 
 cursorType = pymysql.cursors.DictCursor
 pool = pymysqlpool.ConnectionPool(
@@ -20,7 +42,6 @@ pool = pymysqlpool.ConnectionPool(
     maxsize=3
 )
 
-headers = { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'}
 
 def acquire_connection():
     connection = pool.get_connection()

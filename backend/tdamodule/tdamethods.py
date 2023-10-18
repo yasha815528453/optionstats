@@ -15,6 +15,19 @@ import pandas as pd
 from tdamodule import ratelimit
 from time import sleep
 import traceback
+import os
+
+class TdaClient:
+    def __init__(self):
+        self.client = easy_client(os.getenv("API_KEY"), os.getenv("REDIRECT_URL"), os.getenv("TOKEN_PATH", self.make_webdriver))
+
+    def make_webdriver():
+            # Import selenium here because it's slow to import
+            from selenium import webdriver
+
+            driver = webdriver.Chrome("chromedriver.exe")
+            atexit.register(lambda: driver.quit())
+            return driver
 
 def make_webdriver():
         # Import selenium here because it's slow to import
@@ -23,7 +36,6 @@ def make_webdriver():
         driver = webdriver.Chrome("chromedriver.exe")
         atexit.register(lambda: driver.quit())
         return driver
-
 
 client = easy_client(toke.api_key, toke.redirect_url, toke.token_path, make_webdriver)
 

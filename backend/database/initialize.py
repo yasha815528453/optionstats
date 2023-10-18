@@ -1,24 +1,25 @@
 ## create all the main tables,
 import pymysql
 import pymysql.cursors
+import os
 
 
 cursorType = pymysql.cursors.DictCursor
 
 connection = pymysql.connect(
-    host='localhost',
-    user='root',
-    password='8155',
+    host= os.getenv('DB_HOST'),
+    user= os.getenv('DB_USER'),
+    password= os.getenv('DB_PASSWORD'),
     cursorclass=cursorType,
 )
 cursorinstance = connection.cursor()
 cursorinstance.execute("CREATE DATABASE optionsdb")
 
 connection = pymysql.connect(
-    host='localhost',
-    user='root',
-    password='8155',
-    database = "optionsdb",
+    host= os.getenv('DB_HOST'),
+    user= os.getenv('DB_USER'),
+    password= os.getenv('DB_PASSWORD'),
+    database = os.getenv("DB_DATABASE"),
     cursorclass=cursorType,
 )
 
