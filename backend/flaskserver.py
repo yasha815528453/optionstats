@@ -1,8 +1,9 @@
+from dotenv import load_dotenv
+load_dotenv()
 from flask import Flask
 import tdamodule.tdamethods
 import database.methods as DBmethods
 from flask import jsonify
-
 app = Flask("OPTIONSTATS")
 
 @app.route('/api/overallstats')
