@@ -11,7 +11,7 @@ from flask import jsonify
 import os
 
 
-class DbManager:
+class DbWritingManager:
 
     def __init__(self):
         self.cursorType = pymysql.cursors.DictCursor
@@ -30,6 +30,32 @@ class DbManager:
 
     def release_connection(self, connection):
         connection.close()
+
+    def insert_options(self, option_data):
+        sqlstmt = """
+        INSERT INTO options (optionkey, type, SYMBOLS, strikeprice, marketprice, bid, ask, daysToExpiration, lowPrice, highPrice, absLow, absHigh, absLDate, absHDate, volatility, volume, openinterest, delta, gamma, theta, vega, theoreticalOptionValue, lastupdate, upperformance, downperformance, rho, isetf))
+        """
+
+class DbReadingManager:
+
+    def __init__(self):
+        self.cursorType = pymysql.cursors.DictCursor
+        self.pool = pymysqlpool.ConnectionPool(
+            host= os.getenv('DB_HOST'),
+            user= os.getenv('DB_USER'),
+            password= os.getenv('DB_PASSWORD'),
+            database = os.getenv("DB_DATABASE"),
+            cursorclass= self.cursorType,
+            autocommit= True,
+            maxsize= 1
+        )
+
+    def acquire_connection(self):
+        return self.pool.get_connection()
+
+    def release_connection(self, connection):
+        connection.close()
+
 
 cursorType = pymysql.cursors.DictCursor
 pool = pymysqlpool.ConnectionPool(
