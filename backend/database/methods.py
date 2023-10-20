@@ -31,12 +31,16 @@ class DbWritingManager:
     def release_connection(self, connection):
         connection.close()
 
-    def insert_options(self, option_data):
-        sqlstmt = """
+    def insert_options(self, connection, option_data):
+        SQLstmt = """
         INSERT INTO options (optionkey, type, SYMBOLS, strikeprice, marketprice, bid, ask, daysToExpiration, lowPrice, highPrice, absLow, absHigh, absLDate, absHDate, volatility, volume, openinterest, delta, gamma, theta, vega, theoreticalOptionValue, lastupdate, upperformance, downperformance, rho, isetf))
         """
 
+    
+
 class DbReadingManager:
+
+    VALID_TABLES = ["overallstats", "oitable", "..."]
 
     def __init__(self):
         self.cursorType = pymysql.cursors.DictCursor
@@ -50,11 +54,36 @@ class DbReadingManager:
             maxsize= 1
         )
 
+
     def acquire_connection(self):
         return self.pool.get_connection()
 
+
     def release_connection(self, connection):
         connection.close()
+    
+
+    def get_all(self, connection, table):
+
+        if table not in self.VALID_TABLES:
+            raise ValueError(f"Invalid table : {table}")
+
+        SQLstmt = f"select * from {table}"
+        try:
+            cursorinstance = connection.cursor()
+            cursorType.execute(SQLstmt)
+            records = cursorinstance.fetchall()
+            return records
+        except:
+            print(f"Error from getting all data from {table}")
+
+    
+    
+    
+
+
+        
+
 
 
 cursorType = pymysql.cursors.DictCursor
