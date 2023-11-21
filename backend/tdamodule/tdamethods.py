@@ -8,9 +8,9 @@ import tda
 import datetime
 from time import sleep
 import json
-from tdamodule import toke
+import functools
 from datetime import date
-from database import methods as DBmethods
+# from database import methods as DBmethods
 import pandas as pd
 from tdamodule import ratelimit
 from time import sleep
@@ -18,16 +18,67 @@ import traceback
 import os
 
 class TdaClient:
+
+    limiter = ratelimit.RateLimiter(rate_limit=120, time_window=60)
+
+
     def __init__(self):
         self.client = easy_client(os.getenv("API_KEY"), os.getenv("REDIRECT_URL"), os.getenv("TOKEN_PATH", self.make_webdriver))
 
-    def make_webdriver():
+    @staticmethod
+    def api_limiter(client_methods):
+        @functools.wraps(client_methods)
+        def wrapper(self, *args, **kwargs):
+            for retry in range(5):
+                if TdaClient.limiter.get_token():
+                    response = client_methods(self, *args, **kwargs)
+                    return response
+        return wrapper
+
+    def make_webdriver(self):
             # Import selenium here because it's slow to import
             from selenium import webdriver
 
             driver = webdriver.Chrome("chromedriver.exe")
             atexit.register(lambda: driver.quit())
             return driver
+
+    # get stock data function, for closing price, opening, etc..
+    @api_limiter
+    def get_closingprice(self, symbol):
+
+        data = self.client.get_price_history_every_minute(symbol, start_datetime=datetime.datetime.today(),
+                                                           end_datetime=datetime.datetime.today())
+        return data.json()['candles'][540]['close']
+
+    # get candles function, to get the 13:15 candle for accurate price
+    @api_limiter
+    def get_candlestick_indicesclose(self, symbol):
+        data = self.client.get_price_history_every_minute(symbol, start_datetime=datetime.datetime.today(),
+                                                           end_datetime=datetime.datetime.today())
+        return data.json()['candles'][554]['close']
+
+    #get options function,
+    @api_limiter
+    def get_optionchain(self, symbol, size=None):
+        if size:
+            data = self.client.get_option_chain(symbol, strike_count = size, include_quotes=True)
+        else:
+            data = self.client.get_option_chain(symbol, include_quotes=True)
+        if data.json()['status'] == 'FAILED':
+            print(f"{symbol} has failed")
+            return None
+        return data.json()
+
+    @api_limiter
+    def get_quote(self, symbol):
+        data = self.client.get_quote(symbol)
+        if data.json()[symbol]['closePrice'] < 1.0:
+            print(f"bad stock => {symbol}")
+            return None
+        return data.json()
+
+
 
 def make_webdriver():
         # Import selenium here because it's slow to import
@@ -37,7 +88,7 @@ def make_webdriver():
         atexit.register(lambda: driver.quit())
         return driver
 
-client = easy_client(toke.api_key, toke.redirect_url, toke.token_path, make_webdriver)
+# client = easy_client(toke.api_key, toke.redirect_url, toke.token_path, make_webdriver)
 
 def initializeOptionData(symbol, strikesize, etf, datetoday, datetodayinsert, time_change, limiter):
     connection = DBmethods.acquire_connection()
@@ -134,7 +185,13 @@ def initializeOptionData(symbol, strikesize, etf, datetoday, datetodayinsert, ti
                     volatility, delta, gamma, theta, rho, theorPrice = lastputvola, lastputdelta, lastputgamma, lastputtheta, lastputrho, lastputtheor
                 if volume == 0:
                     insertData = (optionkey, "P", symbol, strike, marketprice, bid, ask, daystoexp, lowprice, highprice, lowprice, highprice, datetoday, datetoday, volatility, volume, oi, delta, gamma, theta, vega, theorPrice, datetodayinsert, 0, 0, rho, isetf)
-                    sqlstmt = "INSERT INTO options (optionkey, type, SYMBOLS, strikeprice, marketprice, bid, ask, daysToExpiration, lowPrice, highPrice, absLow, absHigh, absLDate, absHDate, volatility, volume, openinterest, delta, gamma, theta, vega, theoreticalOptionValue, lastupdate, upperformance, downperformance, rho, isetf) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+                    sqlstmt = '''
+                        INSERT INTO options (optionkey, type, SYMBOLS, strikeprice, marketprice, bid,
+                        ask, daysToExpiration, lowPrice, highPrice, absLow, absHigh, absLDate, absHDate,
+                        volatility, volume, openinterest, delta, gamma, theta, vega, theoreticalOptionValue,
+                        lastupdate, upperformance, downperformance, rho, isetf) VALUES
+                        (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
+                        %s, %s, %s, %s, %s, %s, %s)'''
                     DBmethods.execute(sqlstmt, insertData, connection)
                 else:
                     insertData = (optionkey, "P", symbol, strike, marketprice, bid, ask, daystoexp, lowprice, highprice, lowprice, highprice, datetoday, datetoday, volatility, volume, oi, delta, gamma, theta, vega, theorPrice, datetodayinsert, upPerformance, downPerformance, rho, isetf)
@@ -147,7 +204,6 @@ def initializeOptionData(symbol, strikesize, etf, datetoday, datetodayinsert, ti
                 lastputtheta = theta
                 lastputrho = rho
                 lastputtheor = theorPrice
-
 
 
         for expDate, items in data['callExpDateMap'].items():
@@ -557,22 +613,36 @@ def updateOptionData(symbol, strikesize, etf):
 
 def optionSize(ticker):
     size = 0
+    sizetwo = 0
     largest = 0
+    largesttwo = 0
     smallest = 1000
+    smallesttwo = 1000
     data = client.get_option_chain(ticker, from_date= date.today(), to_date= date.today() + datetime.timedelta(days=30))
     for expDate in data.json()['callExpDateMap']:
         for strikeprice in data.json()['callExpDateMap'][expDate]:
             for item in data.json()['callExpDateMap'][expDate][strikeprice]:
-                if item['totalVolume'] != 0 or item['openInterest'] != 0:
+                if item['totalVolume'] <= 10 or item['openInterest'] <= 10:
                     size += 1
         if size < smallest:
             smallest = size
         if size > largest:
             largest = size
         size = 0
+
+    for expDate in data.json()['putExpDateMap']:
+        for strikeprice in data.json()['putExpDateMap'][expDate]:
+            for item in data.json()['putExpDateMap'][expDate][strikeprice]:
+                if item['totalVolume'] <= 10 or item['openInterest'] <= 10:
+                    sizetwo += 1
+        if sizetwo < smallesttwo:
+            smallesttwo = sizetwo
+        if size > largesttwo:
+            largesttwo = size
+        sizetwo = 0
     size = (smallest + largest)//2
     if size % 2 == 0 and size > 10:
         size += 1
-    if size >= 40:
-        size = 39
+    if size >= 60:
+        size = 60
     return size
