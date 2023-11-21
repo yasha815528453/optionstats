@@ -66,6 +66,7 @@ sql = '''CREATE TABLE options(
     type CHAR(1) NOT NULL,
     SYMBOLS CHAR(5) NOT NULL,
     strikeprice float NOT NULL,
+    strikedate VARCHAR(255) NOT NULL,
     marketprice float NOT NULL,
     bid float NOT NULL,
     ask float NOT NULL,
@@ -81,14 +82,11 @@ sql = '''CREATE TABLE options(
     openinterest int NOT NULL,
     delta float NOT NULL,
     gamma float NOT NULL,
-    theta float NOT NULL,
-    vega float NOT NULL,
-    theoreticalOptionValue float NOT NULL,
     lastupdate DATE NOT NULL,
     upperformance float NOT NULL,
     downperformance float NOT NULL,
     rho float NOT NULL,
-    isetf CHAR(1) NOT NULL,
+    ITM CHAR NOT NULL,
     PRIMARY KEY (optionkey)
     )'''
 
@@ -99,13 +97,12 @@ cursorinstance.execute(sql)
 sql = '''CREATE TABLE sectoraggre(
     INDUSTRY VARCHAR(255) NOT NULL,
     volatility float NOT NULL,
-    avgvolatility float NOT NULL,
-    dollarestimate INT NOT NULL,
-    avgdollar INT NOT NULL,
+    avgvola float NOT NULL,
+    oi INT NOT NULL,
+    avgoi float NOT NULL,
     volume INT NOT NULL,
     avgvolume INT NOT NULL,
-    avgcallperf float NOT NULL,
-    avgputperf float NOT NULL,
+    avgperf float NOT NULL,
     PRIMARY KEY (INDUSTRY)
     )'''
 cursorinstance.execute(sql)
@@ -113,45 +110,63 @@ cursorinstance.execute(sql)
 
 ## other small tables for data feed.
 #stock insight
-#performance aggregated
-sql = '''CREATE TABLE stockaggre(
+# option performance aggregated
+sql = '''CREATE TABLE perfaggre(
     SYMBOLS CHAR(5) NOT NULL,
     type CHAR(1) NOT NULL,
     bcallkey VARCHAR(255) NOT NULL,
     bcallperf float NOT NULL,
     bcalldate DATE NOT NULL,
-    avgcall float NOT NULL,
     worstcallperf float NOT NULL,
     worstcalldate DATE NOT NULL,
     worstcall VARCHAR(255) NOT NULL,
     bputkey VARCHAR(255) NOT NULL,
     bputperf float NOT NULL,
     bputdate DATE NOT NULL,
-    avgput float NOT NULL,
     worstputperf float NOT NULL,
     worstputdate DATE NOT NULL,
     worstput VARCHAR(255) NOT NULL,
+    PRIMARY KEY (SYMBOLS)
+    )'''
+cursorinstance.execute(sql)
+
+## option stats aggregated
+sql = '''CREATE TABLE statsaggre(
+    SYMBOLS CHAR(5) NOT NULL,
+    type CHAR(1) NOT NULL,
     callvolume INT NOT NULL,
     putvolume INT NOT NULL,
     calloi INT NOT NULL,
     putoi INT NOT NULL,
-    volume INT NOT NULL,
-    avgvolume INT NOT NULL,
-    dollarestimate INT NOT NULL,
-    avgdollar INT NOT NULL,
-    totalcalldollar INT NOT NULL,
-    totalputdollar INT NOT NULL,
+    otmcallvolume float NOT NULL,
+    itmcallvolume float NOT NULL,
+    otmputvolume float NOT NULL,
+    itmputvolume float NOT NULL,
+    otmcalloi float NOT NULL,
+    itmcalloi float NOT NULL,
+    otmputoi float NOT NULL,
+    itmputoi float NOT NULL,
     volatility float NOT NULL,
     avgvola float NOT NULL,
-    itmotmcratio float NOT NULL,
-    itmotmpratio float NOT NULL,
-    itmotmcdollarratio float NOT NULL,
-    itmotmpdollarratio float NOT NULL,
-    itmotmcoiratio float NOT NULL,
-    itmotmpoiratio float NOT NULL,
+    oi INT NOT NULL,
+    avgoi float NOT NULL,
+    volume INT NOT NULL,
+    avgvolume float NOT NULL,
     PRIMARY KEY (SYMBOLS)
     )'''
 cursorinstance.execute(sql)
+
+#stock's speculative ratios
+sql = '''CREATE TABLE specu_ratio(
+    SYMBOLS CHAR(5) NOT NULL,
+    otmitmcratio float NOT NULL,
+    otmitmpratio float NOT NULL,
+    otmitmcoiratio float NOT NULL,
+    otmitmpoiratio float NOT NULL,
+    voloi float NOT NULL,
+    cpratio float NOT NULL,
+    PRIMARY KEY (SYMBOLS)
+    )'''
 
 #dateaggregated table
 
@@ -164,7 +179,6 @@ sql = '''CREATE TABLE overallstats(
     totalotmpoi INT NOT NULL,
     totalitmcoi INT NOT NULL,
     totalitmpoi INT NOT NULL,
-    totaldollar INT NOT NULL,
     avgtotalotmcall FLOAT NOT NULL,
     avgtotalotmput FLOAT NOT NULL,
     avgtotalitmcall FLOAT NOT NULL,
@@ -173,7 +187,6 @@ sql = '''CREATE TABLE overallstats(
     avgtotalotmpoi FLOAT NOT NULL,
     avgtotalitmcoi FLOAT NOT NULL,
     avgtotalitmpoi FLOAT NOT NULL,
-    avgtotaldollar FLOAT NOT NULL
 )'''
 cursorinstance.execute(sql)
 
@@ -212,10 +225,9 @@ sql = '''CREATE TABLE top100bcperf(
     SYMBOLS CHAR(5) NOT NULL,
     bcallperf float NOT NULL,
     bcalldate VARCHAR(255) NOT NULL,
-    avgcall float NOT NULL,
-    avgvola float NOT NULL,
+    volatility float NOT NULL,
     volume INT NOT NULL,
-    avgvolume INT NOT NULL,
+    oi INT NOT NULL,
     description VARCHAR(255) NOT NULL,
     category VARCHAR(255) NOT NULL,
     pricechange float NOT NULL,
@@ -230,10 +242,9 @@ sql = '''CREATE TABLE top100bpperf(
     SYMBOLS CHAR(5) NOT NULL,
     bputperf float NOT NULL,
     bputdate VARCHAR(255) NOT NULL,
-    avgput float NOT NULL,
-    avgvola float NOT NULL,
+    volatility float NOT NULL,
     volume INT NOT NULL,
-    avgvolume INT NOT NULL,
+    oi INT NOT NULL,
     description VARCHAR(255) NOT NULL,
     category VARCHAR(255) NOT NULL,
     pricechange float NOT NULL,
@@ -248,10 +259,9 @@ sql = '''CREATE TABLE top100wcperf(
     SYMBOLS CHAR(5) NOT NULL,
     wcallperf float NOT NULL,
     wcalldate VARCHAR(255) NOT NULL,
-    avgcall float NOT NULL,
-    avgvola float NOT NULL,
+    volatility float NOT NULL,
     volume INT NOT NULL,
-    avgvolume INT NOT NULL,
+    oi INT NOT NULL,
     description VARCHAR(255) NOT NULL,
     category VARCHAR(255) NOT NULL,
     pricechange float NOT NULL,
@@ -266,10 +276,9 @@ sql = '''CREATE TABLE top100wpperf(
     SYMBOLS CHAR(5) NOT NULL,
     wputperf float NOT NULL,
     wputdate VARCHAR(255) NOT NULL,
-    avgput float NOT NULL,
-    avgvola float NOT NULL,
+    volatility float NOT NULL,
     volume INT NOT NULL,
-    avgvolume INT NOT NULL,
+    oi INT NOT NULL,
     description VARCHAR(255) NOT NULL,
     category VARCHAR(255) NOT NULL,
     pricechange float NOT NULL,

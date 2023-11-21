@@ -1,10 +1,24 @@
 from dotenv import load_dotenv
 load_dotenv()
-from flask import Flask
+from flask import Flask, g, request
 import tdamodule.tdamethods
 import database.methods as DBmethods
 from flask import jsonify
+from database.methods import DbWritingManager, DbReadingManager
+
 app = Flask("OPTIONSTATS")
+DBWriteManager = DbWritingManager()
+DBReadManager = DbReadingManager()
+
+@app.before_request
+def before_read_request():
+    if request.endpoint == 'skip_route':
+        return
+    g.DBconnection = DbReadingManager.acquire_connection()
+
+@app.after_request
+def after_read_request():
+    DbReadingManager.release_connection(g.DBconnection)
 
 @app.route('/api/overallstats')
 def get_overallstats():
