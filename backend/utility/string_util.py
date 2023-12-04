@@ -1,4 +1,4 @@
-from .date_util import DateHlper
+from .date_util import DateHelper
 
 
 class StringHelper:
@@ -11,33 +11,22 @@ class StringHelper:
         strike = key[CP_index + 1:]
         return (dat, strike)
 
-    def initial_api_option_response_break(self, optionsdata):
+    def create_key_expiration(self, optionsdata):
         optionmaps = ['putExpDateMap', 'callExpDateMap']
-        date_today = DateHlper.get_todays_string()
 
-        #To fill API NaN or -999 values with previous values...
-        previous_volatility = 30
-        previous_put_delta = -0.03
-        previous_call_delta = 0.97
-        previous_gamma = 0.005
-        previous_rho = 0.0
+        expiration_map = {}
 
         for optionmap in optionmaps:
-            for expDate, dateContent in optionsdata[optionmap]:
+            for expDate, dateContent in optionsdata[optionmap].items():
+                expDate = expDate[0:10]
                 for strikeprice, data in dateContent.items():
                     data = data[0]
-                    strike = float(strikeprice)
+                    if expDate not in expiration_map:
+                        expiration_map[expDate] = data['daysToExpiration']
+                        break
+        return expiration_map
 
-                    if data['volatility'] == -999 or data['volatility'] == 'NaN':
-                        data['volatility'] = previous_volatility
-                        data['gamma'] = previous_gamma
-                        data['rho'] = previous_rho
-                        if optionmap == 'putExpDateMap':
-                            data['delta'] = previous_put_delta
-                        else:
-                            data['delta'] = previous_call_delta
-
-    def distribute_sql_build(self, perf_metric, perf_date, key, table_name):
+    def distribute_sql_build(self, table_name, perf_metric, perf_date, key):
         return f"""
             INSERT INTO {table_name} (SYMBOLS, {perf_metric}, {perf_date}, volatility, volume, oi,
             description, category, pricechange, percentchange, closingprice, strikedate, strikeprice)
@@ -45,20 +34,20 @@ class StringHelper:
             perf.SYMBOLS,
             perf.{perf_metric},
             perf.{perf_date},
-            option.volatility,
-            option.volume,
-            option.openinterest AS oi,
-            COALESCE(s.description, s.description) AS description,
+            opt.volatility,
+            opt.volume,
+            opt.openinterest AS oi,
+            COALESCE(s.description, e.description) AS description,
             COALESCE(s.INDUSTRY, e.CATEGORY) AS category,
             COALESCE(s.pricechange, e.pricechange) AS pricechange,
             COALESCE(s.percentchange, e.percentchange) AS percentchange,
             COALESCE(s.closingprice, e.closingprice) AS closingprice,
-            option.strikedate,
-            option.strikeprice,
+            opt.strikedate,
+            opt.strikeprice
         FROM
             perfaggre perf
         JOIN
-            options option ON perf.{key} = option.optionkey
+            options opt ON perf.{key} = opt.optionkey
         LEFT JOIN
             tickersS s ON perf.SYMBOLS = s.SYMBOLS
         LEFT JOIN

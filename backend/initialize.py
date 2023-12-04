@@ -4,6 +4,9 @@ from tdamodule import tdamethods
 from utility import file_util
 from stockanalyzer.analytics import OptionsAnalyzer
 from stockanalyzer.stockinfo import StockHelper
+from dotenv import load_dotenv
+load_dotenv()
+
 
 def initialize():
 
@@ -12,15 +15,18 @@ def initialize():
     DBwriter = database_client.DbWritingManager()
     stockHelper = StockHelper()
     TDAclient = tdamethods.TdaClient()
-
+    # fileHelper.create_optional_stocks_csv()
     Optionhelper = OptionsAnalyzer(DBwriter)
     optional_stock = fileHelper.get_optional_stock_list()
 
     for stock in optional_stock:
-
-
+        print(stock)
         option_data = TDAclient.get_optionchain(stock['symbol'])
-        stock_price = option_data['underlyingPrice']
+
+        if type(option_data['underlyingPrice']) == float:
+            stock_price = option_data['underlyingPrice']
+        else:
+            continue
         option_size = stockHelper.useful_options_size(option_data)
         DBwriter.init_specu_ratio(stock['symbol'])
         # if common stock
@@ -39,7 +45,7 @@ def initialize():
             DBwriter.init_option_stats(stock['symbol'], stock['type'])
 
         sized_options_data = TDAclient.get_optionchain(stock['symbol'], option_size)
-        Optionhelper.initial_api_options_break(sized_options_data.json())
+        Optionhelper.initial_api_options_break(sized_options_data)
 
 
 initialize()

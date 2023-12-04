@@ -41,8 +41,7 @@ class ScrapeClient:
             return (sector, industry, country)
 
         except Exception as e:
-            print(e)
-            print(ticker)
+            return ("N/A", "N/A", "N/A")
 
 
     def get_category(self, ticker):

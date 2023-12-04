@@ -19,20 +19,23 @@ import os
 
 class TdaClient:
 
-    limiter = ratelimit.RateLimiter(rate_limit=120, time_window=60)
+    limiter = ratelimit.RateLimiter(rate_limit=2, time_window=1)
 
 
     def __init__(self):
         self.client = easy_client(os.getenv("API_KEY"), os.getenv("REDIRECT_URL"), os.getenv("TOKEN_PATH", self.make_webdriver))
 
-    @staticmethod
     def api_limiter(client_methods):
-        @functools.wraps(client_methods)
         def wrapper(self, *args, **kwargs):
-            for retry in range(5):
-                if TdaClient.limiter.get_token():
-                    response = client_methods(self, *args, **kwargs)
-                    return response
+            for retry in range(15):
+                try:
+                    if TdaClient.limiter.get_token():
+                        response = client_methods(self, *args, **kwargs)
+                        return response
+                except Exception as e:
+                    print(e)
+                    pass
+                sleep(0.1)
         return wrapper
 
     def make_webdriver(self):
@@ -61,12 +64,13 @@ class TdaClient:
     #get options function,
     @api_limiter
     def get_optionchain(self, symbol, size=None):
+
         if size:
             data = self.client.get_option_chain(symbol, strike_count = size, include_quotes=True)
         else:
             data = self.client.get_option_chain(symbol, include_quotes=True)
+
         if data.json()['status'] == 'FAILED':
-            print(f"{symbol} has failed")
             return None
         return data.json()
 

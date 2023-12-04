@@ -1,11 +1,11 @@
 from datetime import date
 import datetime
 
-class DateHlper:
+class DateHelper:
 
     @property
     def today(self):
-        date.today()
+        return date.today()
 
     def get_todays_string(self):
         today = self.today

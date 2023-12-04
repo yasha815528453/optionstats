@@ -2,9 +2,11 @@
 import pymysql
 import pymysql.cursors
 import os
-
+from dotenv import load_dotenv
+import time
 
 cursorType = pymysql.cursors.DictCursor
+load_dotenv()
 
 connection = pymysql.connect(
     host= os.getenv('DB_HOST'),
@@ -28,7 +30,7 @@ cursorinstance = connection.cursor()
 ## 2 main tables
 ## tickers table,
 
-# #normal stocks
+#normal stocks
 sql = '''CREATE TABLE tickersS(
     SYMBOLS CHAR(5) NOT NULL,
     SECTORS VARCHAR(255) NOT NULL,
@@ -167,7 +169,7 @@ sql = '''CREATE TABLE specu_ratio(
     cpratio float NOT NULL,
     PRIMARY KEY (SYMBOLS)
     )'''
-
+cursorinstance.execute(sql)
 #dateaggregated table
 
 sql = '''CREATE TABLE overallstats(
@@ -186,32 +188,32 @@ sql = '''CREATE TABLE overallstats(
     avgtotalotmcoi FLOAT NOT NULL,
     avgtotalotmpoi FLOAT NOT NULL,
     avgtotalitmcoi FLOAT NOT NULL,
-    avgtotalitmpoi FLOAT NOT NULL,
+    avgtotalitmpoi FLOAT NOT NULL
 )'''
 cursorinstance.execute(sql)
 
 sql = '''CREATE TABLE dstock(
     record_date DATE NOT NULL,
     symbol CHAR(5) NOT NULL,
-    compiledate CHAR(8) NOT NULL,
+    compiledate CHAR(10) NOT NULL,
     pcdiff float NOT NULL,
     callvol INT NOT NULL,
     putvol INT NOT NULL
 )'''
 cursorinstance.execute(sql)
 
-sql = '''CREATE TABLE oitable(
-    symbol CHAR(5) NOT NULL,
-    compiledate CHAR(8) NOT NULL,
-    position INT NOT NULL,
-    openinterest INT NOT NULL
-)'''
-cursorinstance.execute(sql)
+# sql = '''CREATE TABLE oitable(
+#     symbol CHAR(5) NOT NULL,
+#     compiledate CHAR(8) NOT NULL,
+#     position INT NOT NULL,
+#     openinterest INT NOT NULL
+# )'''
+# cursorinstance.execute(sql)
 
 sql = '''CREATE TABLE sstock(
     record_date DATE NOT NULL,
     SECTORS VARCHAR(255) NOT NULL,
-    compiledate CHAR(8) NOT NULL,
+    compiledate CHAR(10) NOT NULL,
     pcdiff float NOT NULL,
     callvol INT NOT NULL,
     putvol INT NOT NULL
@@ -257,8 +259,8 @@ cursorinstance.execute(sql)
 
 sql = '''CREATE TABLE top100wcperf(
     SYMBOLS CHAR(5) NOT NULL,
-    wcallperf float NOT NULL,
-    wcalldate VARCHAR(255) NOT NULL,
+    worstcallperf float NOT NULL,
+    worstcalldate VARCHAR(255) NOT NULL,
     volatility float NOT NULL,
     volume INT NOT NULL,
     oi INT NOT NULL,
@@ -274,8 +276,8 @@ cursorinstance.execute(sql)
 
 sql = '''CREATE TABLE top100wpperf(
     SYMBOLS CHAR(5) NOT NULL,
-    wputperf float NOT NULL,
-    wputdate VARCHAR(255) NOT NULL,
+    worstputperf float NOT NULL,
+    worstputdate VARCHAR(255) NOT NULL,
     volatility float NOT NULL,
     volume INT NOT NULL,
     oi INT NOT NULL,

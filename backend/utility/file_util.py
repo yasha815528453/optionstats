@@ -16,7 +16,6 @@ class FileHelper:
 
     def create_optional_stocks_csv(self):
         tdaclient = tdamethods.TdaClient()
-        limiter = ratelimit.RateLimiter(rate_limit=120, time_window=60)
 
         stocklis = yf.tickers_nasdaq() + yf.tickers_other()
         seen = set()
@@ -24,39 +23,30 @@ class FileHelper:
 
         optional_list = []
 
-        for symb in stocklis:
-            for retry in range(5):
-                if limiter.get_token():
-                    data = tdaclient.get_optionchain(symb)
-                    if data['status'] == 'FAILED':
-                        print(symb + " has failed")
-                        break
+        for symb in processed_list:
+            data = tdaclient.get_optionchain(symb)
+            if data == None:
+                pass
+            else:
+                optional_list.append(symb)
 
-                    else:
-                        optional_list.append(symb)
-                        break
-                else:
-                    sleep(0.5)
+
         good_list = []
         for sym in optional_list:
-            for retry in range(5):
-                if limiter.get_token():
-                    data = tdaclient.get_quote(sym)
-                    if data[sym]['closePrice'] < 0.7:
-                        print("noob stock = " + sym)
-                        break
-                    else:
-                        good_list.append({'symbol':sym, 'description':data[sym]['description'],
-                                    'type' : 'S' if data[sym]['assetType'] == '' else 'E'})
-                else:
-                    sleep(0.5)
+            data = tdaclient.get_quote(sym)
+            if data == None or data[sym]['closePrice'] < 0.7:
+                pass
+            else:
+                good_list.append([sym, data[sym]["description"], 'S' if data[sym]['assetType'] == "EQUITY" else 'E'])
+
         with open(self.optional_stock_csv_path, mode='w', newline='') as file:
             writer = csv.writer(file)
+            writer.writerow(['symbol', 'description', 'type'])
             writer.writerows(good_list)
 
     def get_optional_stock_list(self):
 
         with open(self.optional_stock_csv_path, mode='r', newline='') as file:
-            reader = csv.reader(file)
+            reader = csv.DictReader(file)
 
-        return list(reader)
+            return list(reader)

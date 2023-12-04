@@ -16,8 +16,11 @@ import traceback
 from dotenv import load_dotenv
 import os
 import toke
+import tdamethods
 # from tdamethods import TdaClient
 load_dotenv()
+
+tdahelp = tdamethods.TdaClient()
 def make_webdriver():
         # Import selenium here because it's slow to import
         from selenium import webdriver
@@ -57,14 +60,44 @@ limiter = ratelimit.RateLimiter(rate_limit=120, time_window=60)
 #     reader = csv.reader(file)
 #     print(list(reader))
 
+def useful_options_size(tda_data):
+        strike_size = 0
+        shortest_date, longest_date = 1000, 0
+        for expDate, expDatedict in tda_data['callExpDateMap'].items():
+                for strikeprice, info in expDatedict.items():
+                        volume = info[0]['totalVolume']
+                        oi = info[0]['openInterest']
+                        if volume >= 5 or oi >= 5:
+                                strike_size += 1
+                        if strike_size < shortest_date:
+                                shortest_date = strike_size
+                        if strike_size > longest_date:
+                                longest_date = strike_size
+                        strike_size = 0
 
+        strike_size = (shortest_date + longest_date) // 2
+        if strike_size < 10:
+                return 10
+        elif strike_size >= 60:
+                return 60
+        return strike_size
 
 # for dates, strike in data.json()['putExpDateMap'].items():
 #         print(dates, '    :   ', len(strike.keys()))
 
-data = client.get_option_chain("BITO")
+data = tdahelp.get_optionchain("AAPB")
 with open ('temp.json', 'w') as file:
-        json.dump(data.json(), file, indent=4)
+        json.dump(data, file, indent=4)
+
+option_size = useful_options_size(data)
+print(option_size)
+data = tdahelp.get_optionchain("LUNG", option_size)
+optionmaps = ['putExpDateMap', 'callExpDateMap']
+for optionmap in optionmaps:
+        for expdate, datecontent in data[optionmap].items():
+                # print(datecontent)
+                print(1)
+# print(data)
 # data = data.json()['putExpDateMap']
 
 # for i, j in data.items():
