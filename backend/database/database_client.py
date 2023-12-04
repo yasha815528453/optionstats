@@ -1,23 +1,27 @@
+import datetime
+import json
+import os
+import traceback
+from datetime import date
+
 import pymysql
 import pymysql.cursors
-import datetime
-from datetime import date
-from tdamodule import tdamethods
-from scrape import scrapeclient
-import json
 import pymysqlpool
-import traceback
 from flask import jsonify
-import os
-import utility.date_util
+from scrape import scrapeclient
+from tdamodule import tdamethods
 from utility import date_util, string_util
+
 
 class DbWritingManager:
 
-    VALID_TABLES = ["overallstats", "oitable", "..."]
+    VALID_TABLES = ["overallstats", "oitable", "miscellaneous", "sectoraggre",
+                    "perfaggre", "statsaggre", "specu_ratio", "top100bcperf",
+                    "top100bpperf", "top100wcperf", "top100wpperf", "dstock"]
     MAJOR_INDICES = ["SPY", "QQQ", "IWM", "DIA"]
 
     def __init__(self):
+
         self.cursorType = pymysql.cursors.DictCursor
         self.pool = pymysqlpool.ConnectionPool(
             host= os.getenv('DB_HOST'),
@@ -29,7 +33,7 @@ class DbWritingManager:
             maxsize= 3
         )
         self.connection = self.acquire_connection()
-        self.datehelper = date_util.DateHlper()
+        self.datehelper = date_util.DateHelper()
         self.stringhelper = string_util.StringHelper()
 
 
@@ -89,7 +93,7 @@ class DbWritingManager:
         self._execute_sql(self.connection, SQLstmt, insertdata)
 
     def update_sector_dateaggre(self):
-        dateutil = utility.date_util.DateHlper()
+        dateutil = date_util.DateHelper()
         exp_date = dateutil.get_datetime_delta(15)
         self.delete_expired_options("sstock", exp_date)
         SQLstmt = '''INSERT INTO sstock(record_date, SECTORS, compiledate, pcdiff, callvol, putvol)
@@ -105,7 +109,8 @@ class DbWritingManager:
 
 
     def insert_timestamp(self):
-        dateutil = utility.date_util.DateHlper()
+        dateutil = date_util.DateHelper()
+        self.clear_table("miscellaneous")
         SQLstmt = "INSERT INTO miscellaneous(timestamp) VALUES (%s)"
         timestamp = dateutil.get_timestamp()
         self._execute_sql(self.connection, SQLstmt, (timestamp,))
@@ -222,8 +227,8 @@ class DbWritingManager:
 
     def init_option_stats(self, symbol, etftype):
         SQLstmt = '''INSERT INTO statsaggre (SYMBOLS, type, callvolume, putvolume, calloi, putoi,
-                    oi, avgoi, volume, avgvolume, dollarestimate, avgdollar, totalcalldollar,
-                    totalputdollar, volatility, avgvola, otmcallvolume, otmputvolume, otmcalloi, otmputoi)
+                    otmcallvolume, itmcallvolume, otmputvolume, itmputvolume, otmcalloi, itmcalloi, otmputoi, itmputoi,
+                    volatility, avgvola, oi, avgoi, volume, avgvolume)
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 '''
         insertdata = (symbol, etftype, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,
@@ -232,7 +237,8 @@ class DbWritingManager:
         self._execute_sql(self.connection, SQLstmt, insertdata)
 
     def init_specu_ratio(self, symbol):
-        SQLstmt = "INSERT INTO specu_ratio (SYMBOLS, otmitmcratio, otmitmpratio, otmitmcoiratio, otmitmpoiratio, voloi, cpratio)"
+        SQLstmt = '''INSERT INTO specu_ratio (SYMBOLS, otmitmcratio, otmitmpratio, otmitmcoiratio, otmitmpoiratio, voloi, cpratio)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s)'''
         insertdata = (symbol, 1, 1, 1, 1, 1, 1)
         self._execute_sql(self.connection, SQLstmt, insertdata)
 
@@ -243,10 +249,9 @@ class DbWritingManager:
 
 
 
-
 class DbReadingManager:
 
-    VALID_TABLES = ["overallstats", "oitable", "tickerse", "tickerss"]
+    VALID_TABLES = ["overallstats", "oitable", "tickerse", "tickerss", "dstock", "miscellaneous"]
 
     def __init__(self):
         self.cursorType = pymysql.cursors.DictCursor
@@ -305,7 +310,7 @@ class DbReadingManager:
         return self._execute_sql(self.connection, SQLstmt, (symbol, symbol))
 
     def get_options_sorted(self, symbol):
-        SQLstmt = "select * from options ORDER BY SYMBOLS ASC, daysToExpiration ASC, type ASC, strikeprice ASC WHERE SYMBOLS = %s"
+        SQLstmt = "select * from options WHERE SYMBOLS = %s ORDER BY daysToExpiration ASC, type ASC, strikeprice ASC"
         return self._execute_sql(self.connection, SQLstmt, (symbol, ))
 
 
@@ -329,8 +334,8 @@ class DbReadingManager:
     def get_one_val(self, table, key_col, key_val, target_col):
         SQLstmt = f"SELECT {target_col} FROM {table} WHERE {key_col} = %s"
 
-        result = self._execute_sql(SQLstmt, (key_val, ))
-        return result[0]
+        result = self._execute_sql(self.connection, SQLstmt, (key_val, ))
+        return result[0][target_col]
 
 
     def _execute_sql(self, connection, SQLstmt, data=None):
