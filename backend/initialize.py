@@ -15,7 +15,7 @@ def initialize():
     DBwriter = database_client.DbWritingManager()
     stockHelper = StockHelper()
     TDAclient = tdamethods.TdaClient()
-    # fileHelper.create_optional_stocks_csv()
+    fileHelper.create_optional_stocks_csv()
     Optionhelper = OptionsAnalyzer(DBwriter)
     optional_stock = fileHelper.get_optional_stock_list()
 

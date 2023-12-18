@@ -111,22 +111,6 @@ const Rankings = () => {
         {params.value}
       </div>
     ) },
-    { field: "volume", headerName: "Trade volume",
-    renderCell: (params) => (
-      <div className="MuiDataGrid-medium"
-      style={{ width: "100%", height:"100%"}}
-      >
-        {params.value}
-      </div>
-    ) },
-    { field: "avgvolume", headerName: "Average volume",
-    renderCell: (params) => (
-      <div className="MuiDataGrid-medium"
-      style={{ width: "100%", height:"100%"}}
-      >
-        {params.value}
-      </div>
-    ) },
   ];
 
   const apiEndpoints = [
@@ -150,15 +134,15 @@ const Rankings = () => {
       variable4: "Purchase date",
     },
     {
-      variable1: "wcallperf",
+      variable1: "worstcallperf",
       variable2: "Worst performance today",
-      variable3: "wcalldate",
+      variable3: "worstcalldate",
       variable4: "Sell date",
     },
     {
-      variable1: "wputperf",
+      variable1: "worstputperf",
       variable2: "Worst performance today",
-      variable3: "wputdate",
+      variable3: "worstputdate",
       variable4: "Sell date ",
     },
   ];
@@ -202,7 +186,7 @@ const Rankings = () => {
   });
 
   return (
-    <Box m="20px">
+    <Box m={4}>
       <Header title="RANKINGS" subtitle="Options Ranking" />
       <Typography
         m="-20px 0 0 0"

@@ -85,18 +85,18 @@ def useful_options_size(tda_data):
 # for dates, strike in data.json()['putExpDateMap'].items():
 #         print(dates, '    :   ', len(strike.keys()))
 
-data = tdahelp.get_optionchain("AAPB")
+data = tdahelp.get_optionchain("ANIK")
 with open ('temp.json', 'w') as file:
         json.dump(data, file, indent=4)
 
-option_size = useful_options_size(data)
-print(option_size)
-data = tdahelp.get_optionchain("LUNG", option_size)
-optionmaps = ['putExpDateMap', 'callExpDateMap']
-for optionmap in optionmaps:
-        for expdate, datecontent in data[optionmap].items():
-                # print(datecontent)
-                print(1)
+# option_size = useful_options_size(data)
+# print(option_size)
+# data = tdahelp.get_optionchain("LUNG", option_size)
+# optionmaps = ['putExpDateMap', 'callExpDateMap']
+# for optionmap in optionmaps:
+#         for expdate, datecontent in data[optionmap].items():
+#                 # print(datecontent)
+#                 print(1)
 # print(data)
 # data = data.json()['putExpDateMap']
 

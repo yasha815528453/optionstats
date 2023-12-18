@@ -40,7 +40,8 @@ const Sectors = () => {
           ),
         },
 
-        { field: "avgcallperf", headerName: "Average call performance",
+        { field: "avgperf", headerName: "Average Performance",
+          minWidth: 130,
           renderCell: (params) => (
 
           <div className="MuiDataGrid-large"
@@ -49,15 +50,8 @@ const Sectors = () => {
             {params.value >= 0 ? `+${params.value}` : params.value}%
           </div>
         )},
-        { field: "avgputperf", headerName: "Average put performance",
-        renderCell: (params) => (
-          <div className="MuiDataGrid-medium"
-          style={{ width: "100%", height:"100%", color: params.value < 0 ? colors.redAccent[400] : colors.greenAccent[400]}}
-          >
-            {params.value >= 0 ? `+${params.value}` : params.value}%
-          </div>
-        )},
-          { field: "volatility", headerName: "Volatility",
+          { field: "oi", headerName: "Open Interest",
+          minWidth: 100,
         renderCell: (params) => (
           <div className="MuiDataGrid-large"
           style={{ width: "100%", height:"100%", color: colors.grey[100]}}
@@ -65,7 +59,7 @@ const Sectors = () => {
             {params.value}
           </div>
         ) },
-        { field: "avgvolatility", headerName: "Average volatility",
+        { field: "avgoi", headerName: "Average OI",
         renderCell: (params) => (
           <div className="MuiDataGrid-large"
           style={{ width: "100%", height:"100%"}}
@@ -74,22 +68,6 @@ const Sectors = () => {
           </div>
         ) },
 
-        { field: "dollarestimate", headerName: "$ traded",
-        renderCell: (params) => (
-          <div className="MuiDataGrid-medium"
-          style={{ width: "100%", height:"100%"}}
-          >
-            {params.value}
-          </div>
-        ) },
-        { field: "avgdollar", headerName: "Average $ traded",
-        renderCell: (params) => (
-          <div className="MuiDataGrid-medium"
-          style={{ width: "100%", height:"100%"}}
-          >
-            {params.value}
-          </div>
-        ) },
         { field: "volume", headerName: "Volume",
         renderCell: (params) => (
           <div className="MuiDataGrid-medium"
@@ -98,7 +76,23 @@ const Sectors = () => {
             {params.value}
           </div>
         ) },
-        { field: "avgvolume", headerName: "Average volume",
+        { field: "avgvolume", headerName: "Average Volume",
+        renderCell: (params) => (
+          <div className="MuiDataGrid-medium"
+          style={{ width: "100%", height:"100%"}}
+          >
+            {params.value}
+          </div>
+        ) },
+        { field: "volatility", headerName: "Volatility",
+        renderCell: (params) => (
+          <div className="MuiDataGrid-medium"
+          style={{ width: "100%", height:"100%"}}
+          >
+            {params.value}
+          </div>
+        ) },
+        { field: "avgvola", headerName: "Average Volatility",
         renderCell: (params) => (
           <div className="MuiDataGrid-medium"
           style={{ width: "100%", height:"100%"}}
@@ -116,7 +110,7 @@ const Sectors = () => {
 
 
     return(
-        <Box m="20px">
+        <Box m={4}>
             <Header title="Sector Performance"/>
             <Typography
                 m="-20px 0 0 0"
