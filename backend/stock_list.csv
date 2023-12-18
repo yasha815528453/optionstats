@@ -1,5 +1,6 @@
 symbol,description,type
 AADI,"Aadi Bioscience, Inc. - Common Stock",S
+AAGR,African Agriculture Holdings Inc. - Common Stock,S
 AAL,"American Airlines Group, Inc. - Common Stock",S
 AAOI,"Applied Optoelectronics, Inc. - Common Stock",S
 AAON,"AAON, Inc. - Common Stock",S
@@ -11,7 +12,6 @@ AAXJ,iShares MSCI All Country Asia ex Japan ETF,E
 ABAT,American Battery Technology Company - Common Stock,S
 ABCB,Ameris Bancorp - Common Stock,S
 ABCL,AbCellera Biologics Inc. - Common Shares,S
-ABCM,Abcam plc - American Depositary Shares,S
 ABEO,Abeona Therapeutics Inc. - Common Stock,S
 ABIO,"ARCA biopharma, Inc. - Common Stock",S
 ABNB,"Airbnb, Inc. - Class A Common Stock",S
@@ -63,7 +63,6 @@ AFCG,"AFC Gamma, Inc. - Common Stock",S
 AFRM,"Affirm Holdings, Inc. - Class A Common Stock",S
 AFYA,Afya Limited - Class A Common Shares,S
 AGIO,"Agios Pharmaceuticals, Inc. - Common Stock",S
-AGLE,"Aeglea BioTherapeutics, Inc. - Common Stock",S
 AGNC,AGNC Investment Corp. - Common Stock,S
 AGNG,Global X Aging Population ETF,E
 AGYS,"Agilysys, Inc. - Common Stock",S
@@ -102,7 +101,6 @@ ALTU,Altitude Acquisition Corp. - Class A Common Stock,S
 ALTY,Global X Alternative Income ETF,E
 ALVR,"AlloVir, Inc. - Common Stock",S
 ALXO,ALX Oncology Holdings Inc. - Common Stock,S
-ALZN,"Alzamend Neuro, Inc. - Common Stock Status Alert: Deficient",S
 AMAL,Amalgamated Financial Corp. - Common Stock,S
 AMAM,"Ambrx Biopharma, Inc.  - Common Stock",S
 AMAT,"Applied Materials, Inc. - Common Stock",S
@@ -134,6 +132,7 @@ ANIP,"ANI Pharmaceuticals, Inc. - Common Stock",S
 ANIX,"Anixa Biosciences, Inc. - Common Stock",S
 ANNX,"Annexon, Inc. - common stock",S
 ANSS,"ANSYS, Inc. - Common Stock",S
+ANY,Sphere 3D Corp. - Common Shares,S
 AOSL,Alpha and Omega Semiconductor Limited - Common Shares,S
 AOUT,"American Outdoor Brands, Inc. - Common Stock",S
 APA,APA Corporation - Common Stock,S
@@ -158,7 +157,6 @@ ARBE,Arbe Robotics Ltd. - Ordinary Shares,S
 ARBK,Argo Blockchain plc - American Depositary Shares,S
 ARCB,ArcBest Corporation - Common Stock,S
 ARCC,Ares Capital Corporation - Closed End Fund,S
-ARCE,Arco Platform Limited - Class A Common Shares,S
 ARCT,Arcturus Therapeutics Holdings Inc. - Common Stock,S
 ARDX,"Ardelyx, Inc. - Common Stock",S
 AREC,American Resources Corporation - Class A Common Stock,S
@@ -178,7 +176,6 @@ ASLE,AerSale Corporation - Common Stock,S
 ASML,ASML Holding N.V. - New York Registry Shares,S
 ASND,Ascendis Pharma A/S - American Depositary Shares,S
 ASO,"Academy Sports and Outdoors, Inc. - Common Stock",S
-ASRT,"Assertio Holdings, Inc. - Common Stock",S
 ASRV,AmeriServ Financial Inc. - Common Stock,S
 ASTE,"Astec Industries, Inc. - Common Stock",S
 ASTL,Algoma Steel Group Inc. - Common Shares,S
@@ -216,7 +213,6 @@ AVO,"Mission Produce, Inc. - Common Stock",S
 AVPT,"AvePoint, Inc. - Class A Common Stock",S
 AVRO,"AVROBIO, Inc. - Common Stock",S
 AVT,"Avnet, Inc. - Common Stock",S
-AVTA,"Avantax, Inc. - Common Stock",S
 AVXL,Anavex Life Sciences Corp. - Common Stock,S
 AWRE,"Aware, Inc. - Common Stock",S
 AXDX,"Accelerate Diagnostics, Inc. - Common Stock",S
@@ -256,10 +252,9 @@ BEAM,Beam Therapeutics Inc. - Common Stock,S
 BECN,"Beacon Roofing Supply, Inc. - Common Stock",S
 BEEM,Beam Global - Common Stock Status Alert: Deficient,S
 BELFB,Bel Fuse Inc. - Class B Common Stock,S
-BFI,BurgerFi International Inc - Common Stock Status Alert: Deficient,S
 BFIN,BankFinancial Corporation - Common Stock,S
 BFIT,Global X Health & Wellness ETF,E
-BFRI,Biofrontera Inc. - Common Stock,S
+BFRI,Biofrontera Inc. - Common Stock Status Alert: Deficient,S
 BFST,"Business First Bancshares, Inc. - Common Stock",S
 BGC,"BGC Group, Inc. - Class A Common Stock",S
 BGFV,Big 5 Sporting Goods Corporation - Common Stock,S
@@ -298,6 +293,7 @@ BLUE,"bluebird bio, Inc. - Common Stock",S
 BLZE,"Backblaze, Inc. - Class A Common Stock",S
 BMBL,Bumble Inc. - common stock,S
 BMEA,"Biomea Fusion, Inc. - Common Stock",S
+BMRA,"Biomerica, Inc. - Common Stock",S
 BMRC,Bank of Marin Bancorp - Common Stock,S
 BMRN,BioMarin Pharmaceutical Inc. - Common Stock,S
 BND,Vanguard Total Bond Market ETF,E
@@ -318,7 +314,6 @@ BRP,"BRP Group, Inc. - Class A Common Stock",S
 BRY,Berry Corporation (bry) - Common Stock,S
 BRZE,"Braze, Inc. - Class A Common Stock",S
 BSET,"Bassett Furniture Industries, Incorporated - Common Stock",S
-BSQR,BSQUARE Corporation - Common Stock,S
 BSRR,Sierra Bancorp - Common Stock,S
 BSVO,EA Bridgeway Omni Small-Cap Value ETF,E
 BSY,"Bentley Systems, Incorporated - Class B Common Stock",S
@@ -331,7 +326,7 @@ BVS,Bioventus Inc. - Class A Common Stock,S
 BWB,"Bridgewater Bancshares, Inc. - Common Stock",S
 BWEN,"Broadwind, Inc. - Common Stock",S
 BWMX,"Betterware de Mexico, S.A.P.I. de C.V. - Ordinary Shares",S
-BYFC,Broadway Financial Corporation - Class A Common Stock,S
+BYFC,Broadway Financial Corporation - Class A Common Stock Status Alert: Delinquent,S
 BYND,"Beyond Meat, Inc. - Common stock",S
 BYOB,SoFi Be Your Own Boss ETF,E
 BYRN,"Byrna Technologies, Inc. - Common Stock",S
@@ -349,6 +344,7 @@ CAMT,Camtek Ltd. - Ordinary Shares,S
 CAN,Canaan Inc. - American Depositary Shares,S
 CAPR,"Capricor Therapeutics, Inc. - Common Stock",S
 CAR,"Avis Budget Group, Inc. - Common Stock",S
+CARA,"Cara Therapeutics, Inc. - Common Stock",S
 CARE,"Carter Bankshares, Inc. - Common Stock",S
 CARG,"CarGurus, Inc. - Class A Common Stock",S
 CARM,"Carisma Therapeutics, Inc. - Common Stock",S
@@ -372,7 +368,6 @@ CCBG,Capital City Bank Group - Common Stock Status Alert: Delinquent,S
 CCCC,"C4 Therapeutics, Inc. - Common Stock",S
 CCCS,CCC Intelligent Solutions Holdings Inc. - Common Stock,S
 CCEP,Coca-Cola Europacific Partners plc - Ordinary Shares,S
-CCLD,"CareCloud, Inc. - Common Stock",S
 CCLP,CSI Compressco LP - common units,S
 CCNE,CNB Financial Corporation - Common Stock,S
 CCOI,"Cogent Communications Holdings, Inc. - Common Stock",S
@@ -393,6 +388,7 @@ CECO,CECO Environmental Corp. - Common Stock,S
 CEG,Constellation Energy Corporation - Common Stock,S
 CELC,Celcuity Inc. - Common Stock,S
 CELH,"Celsius Holdings, Inc. - Common Stock",S
+CENN,Cenntro Electric Group Limited - Ordinary Shares Status Alert: Deficient,S
 CENT,Central Garden & Pet Company - Common Stock,S
 CENTA,Central Garden & Pet Company - Class A Common Stock Nonvoting,S
 CENX,Century Aluminum Company - Common Stock,S
@@ -434,17 +430,13 @@ CLBT,Cellebrite DI Ltd. - Ordinary Shares,S
 CLDX,"Celldex Therapeutics, Inc. - Common Stock",S
 CLFD,"Clearfield, Inc. - Common Stock",S
 CLGN,CollPlant Biotechnologies Ltd. - Ordinary Shares,S
-CLIR,ClearSign Technologies Corporation - Common Stock,S
 CLLS,Cellectis S.A. - American Depositary Shares,S
 CLMT,"Calumet Specialty Products Partners, L.P. - Common units representing limited pa",S
 CLNE,Clean Energy Fuels Corp. - Common Stock,S
 CLOU,Global X Cloud Computing ETF,E
-CLOV,"Clover Health Investments, Corp.  - Class A Common stock",S
-CLPS,CLPS Incorporation - Common Stock,S
 CLPT,ClearPoint Neuro Inc. - Common Stock,S
 CLSA,Cabana Target Leading Sector Aggressive ETF,E
 CLSC,Cabana Target Leading Sector Conservative ETF,E
-CLSD,"Clearside Biomedical, Inc. - Common Stock Status Alert: Deficient",S
 CLSK,"CleanSpark, Inc. - Common Stock",S
 CLVR,Clever Leaves Holdings Inc. - Common Shares,S
 CMBM,Cambium Networks Corporation - Ordinary Shares,S
@@ -461,7 +453,6 @@ CNDT,Conduent Incorporated - Common Stock,S
 CNOB,"ConnectOne Bancorp, Inc. - Common Stock",S
 CNSL,"Consolidated Communications Holdings, Inc. - Common Stock",S
 CNTA,Centessa Pharmaceuticals plc - American Depositary Shares,S
-CNTB,Connect Biopharma Holdings Limited - American Depositary Shares,S
 CNTY,"Century Casinos, Inc. - Common Stock",S
 CNXC,Concentrix Corporation - Common Stock,S
 CNXN,"PC Connection, Inc. - Common Stock",S
@@ -481,7 +472,6 @@ CONX,CONX Corp. - Class A Common Stock,S
 COO,"The Cooper Companies, Inc.  - Common Stock",S
 COOP,Mr. Cooper Group Inc. - Common Stock,S
 CORT,Corcept Therapeutics Incorporated - Common Stock,S
-COSM,Cosmos Health Inc. - Common Stock,S
 COST,Costco Wholesale Corporation - Common Stock,S
 COWS,Amplify Cash Flow Dividend Leaders ETF,E
 CPIX,Cumberland Pharmaceuticals Inc. - Common Stock,S
@@ -607,6 +597,7 @@ DRIV,Global X Autonomous & Electric Vehicles ETF,E
 DRS,"Leonardo DRS, Inc. - Common Stock",S
 DRVN,Driven Brands Holdings Inc. - Common Stock,S
 DSGN,"Design Therapeutics, Inc. - Common Stock",S
+DSGR,"Distribution Solutions Group, Inc. - Common Stock",S
 DSGX,The Descartes Systems Group Inc. - Common Stock,S
 DSKE,"Daseke, Inc. - Common Stock",S
 DSP,Viant Technology Inc. - common stock,S
@@ -625,6 +616,7 @@ DYN,"Dyne Therapeutics, Inc. - Common Stock",S
 DZSI,DZS Inc. - Common Stock Status Alert: Delinquent,S
 EA,Electronic Arts Inc. - Common Stock,S
 EAR,"Eargo, Inc. - Common Stock",S
+EAST,"Eastside Distilling, Inc. - Common Stock",S
 EBAY,eBay Inc. - Common Stock,S
 EBC,"Eastern Bankshares, Inc. - Common Stock",S
 EBIX,"Ebix, Inc. - Common Stock",S
@@ -642,7 +634,7 @@ EFSC,Enterprise Financial Services Corporation - Common Stock,S
 EGAN,eGain Corporation - Common Stock,S
 EGBN,"Eagle Bancorp, Inc. - Common Stock",S
 EGHT,8x8 Inc - Common stock,S
-EGRX,"Eagle Pharmaceuticals, Inc. - Common Stock",S
+EGRX,"Eagle Pharmaceuticals, Inc. - Common Stock Status Alert: Delinquent",S
 EH,EHang Holdings Limited - ADS,S
 EHTH,"eHealth, Inc. - Common Stock",S
 EKG,First Trust Nasdaq Lux Digital Health Solutions ETF,E
@@ -652,6 +644,7 @@ ELVN,"Enliven Therapeutics, Inc.  - Common Stock",S
 EMB,iShares J.P. Morgan USD Emerging Markets Bond ETF,E
 EMBC,Embecta Corp. - Common Stock,S
 EMXC,iShares MSCI Emerging Markets ex China ETF,E
+ENG,ENGlobal Corporation - Common Stock Status Alert: Deficient,S
 ENLT,Enlight Renewable Energy Ltd. - Ordinary Shares,S
 ENLV,Enlivex Therapeutics Ltd. - Ordinary Shares,S
 ENPH,"Enphase Energy, Inc. - Common Stock",S
@@ -669,6 +662,7 @@ ERAS,"Erasca, Inc. - Common Stock",S
 ERIC,Ericsson - American Depositary Shares each representing 1 underlying Class B sha,S
 ERIE,Erie Indemnity Company - Class A Common Stock,S
 ERII,"Energy Recovery, Inc. - Common Stock",S
+ERNA,Eterna Therapeutics Inc. - Common Stock,S
 ESCA,"Escalade, Incorporated - Common Stock",S
 ESGD,iShares ESG Aware MSCI EAFE ETF,E
 ESGE,iShares ESG Aware MSCI EM ETF,E
@@ -812,8 +806,7 @@ FTAI,FTAI Aviation Ltd. - Common Stock,S
 FTC,First Trust Large Cap Growth AlphaDEX Fund,E
 FTCS,First Trust Capital Strength ETF,E
 FTDR,"Frontdoor, Inc. - Common Stock",S
-FTEK,"Fuel Tech, Inc. - Common Stock",S
-FTGC,FIRST TRUST EXCHANGE-TRADED FU FST GLB FD ETF,E
+FTGC,First Trust Global Tactical Commodity Strategy Fund,E
 FTHI,First Trust BuyWrite Income ETF,E
 FTHM,Fathom Holdings Inc. - Common Stock,S
 FTNT,"Fortinet, Inc. - Common Stock",S
@@ -977,7 +970,7 @@ HROW,"Harrow, Inc. - Common Stock",S
 HRTX,"Heron Therapeutics, Inc.   - Common Stock",S
 HRZN,Horizon Technology Finance Corporation - Common Stock,S
 HSAI,"Hesai Group - American Depositary Share, each ADS represents one Class B ordinar",S
-HSIC,"Henry Schein, Inc. - Common Stock Status Alert: Delinquent",S
+HSIC,"Henry Schein, Inc. - Common Stock",S
 HSII,"Heidrick & Struggles International, Inc. - Common Stock",S
 HST,"Host Hotels & Resorts, Inc. - Common Stock",S
 HSTM,"HealthStream, Inc. - Common Stock",S
@@ -988,17 +981,15 @@ HTLD,"Heartland Express, Inc. - Common Stock",S
 HTLF,"Heartland Financial USA, Inc. - Common Stock",S
 HTZ,"Hertz Global Holdings, Inc - Common Stock",S
 HUBG,"Hub Group, Inc. - Class A Common Stock",S
-HUGE,FSD Pharma Inc. - Class B Subordinate Voting Shares,S
 HUMA,"Humacyte, Inc. - Common Stock",S
 HURN,Huron Consulting Group Inc. - Common Stock,S
-HUT,Hut 8 Mining Corp. - Common Shares,S
+HUT,Hut 8 Corp. - Common Stock,S
 HWC,Hancock Whitney Corporation - Common Stock,S
 HWKN,"Hawkins, Inc. - Common Stock",S
 HYDR,Global X Hydrogen ETF,E
-HYMC,Hycroft Mining Holding Corporation - Class A Common Stock Status Alert: Deficient,S
+HYMC,Hycroft Mining Holding Corporation - Class A Common Stock,S
 HYPR,"Hyperfine, Inc.  - Class A Common Stock",S
 HYZD,WisdomTree Interest Rate Hedged High Yield Bond Fund,E
-HYZN,Hyzon Motors Inc. - Class A Common Stock,S
 IAC,IAC Inc. - Common Stock,S
 IART,Integra LifeSciences Holdings Corporation - Common Stock,S
 IAS,Integral Ad Science Holding Corp. - Common Stock,S
@@ -1071,7 +1062,7 @@ INMB,INmune Bio Inc. - Common stock,S
 INMD,InMode Ltd.  - Ordinary Shares,S
 INNV,InnovAge Holding Corp. - Common Stock,S
 INOD,Innodata Inc. - Common Stock,S
-INSE,"Inspired Entertainment, Inc. - Common Stock",S
+INSE,"Inspired Entertainment, Inc. - Common Stock Status Alert: Delinquent",S
 INSM,Insmed Incorporated - Common Stock,S
 INTA,"Intapp, Inc. - Common Stock",S
 INTC,Intel Corporation - Common Stock,S
@@ -1132,7 +1123,6 @@ JFIN,Jiayin Group Inc. - American Depositary Shares,S
 JJSF,J & J Snack Foods Corp. - Common Stock,S
 JKHY,"Jack Henry & Associates, Inc. - Common Stock",S
 JMSB,"John Marshall Bancorp, Inc. - Common Stock",S
-JOET,Virtus Terranova U.S. Quality Momentum ETF,E
 JRVR,"James River Group Holdings, Ltd. - Common Shares",S
 JSML,Janus Henderson Small Cap Growth Alpha ETF,E
 JYNT,The Joint Corp. - Common Stock,S
@@ -1221,6 +1211,7 @@ LIFE,"aTyr Pharma, Inc. - Common Stock",S
 LIFW,"MSP Recovery, Inc. - Class A Common Stock",S
 LILA,Liberty Latin America Ltd. - Class A Common Stock,S
 LILAK,Liberty Latin America Ltd. - Class C Common Stock,S
+LILM,Lilium N.V. - Class A Ordinary Shares Status Alert: Deficient,S
 LIN,Linde plc - Ordinary Shares,S
 LINC,Lincoln Educational Services Corporation - Common Stock,S
 LIND,Lindblad Expeditions Holdings Inc.  - Common Stock,S
@@ -1230,6 +1221,7 @@ LIVN,LivaNova PLC - Ordinary Shares,S
 LIZI,LIZHI INC. - American Depositary Shares,S
 LKFN,Lakeland Financial Corporation - Common Stock,S
 LKQ,LKQ Corporation - Common Stock,S
+LLYVA,Liberty Media Corporation - Series A Liberty Live Common Stock,S
 LMAT,"LeMaitre Vascular, Inc. - Common Stock",S
 LMB,"Limbach Holdings, Inc. - Common Stock",S
 LMBS,First Trust Low Duration Opportunities ETF,E
@@ -1264,13 +1256,12 @@ LSXMK,Liberty Media Corporation - Series C Liberty SiriusXM Common Stock,S
 LTBR,Lightbridge Corporation - Common Stock,S
 LTRN,Lantern Pharma Inc. - Common Stock,S
 LTRX,"Lantronix, Inc. - Common Stock",S
-LTRY,"Lottery.com, Inc. - Common Stock",S
+LTRY,"Lottery.com, Inc. - Common Stock Status Alert: Deficient and Delinquent",S
 LULU,lululemon athletica inc. - Common Stock,S
 LUNA,Luna Innovations Incorporated - Common Stock,S
 LUNG,Pulmonx Corporation - Common Stock,S
 LVHD,Franklin U.S. Low Volatility High Dividend Index ETF,E
 LVLU,"Lulu's Fashion Lounge Holdings, Inc. - Common Stock",S
-LVO,"LiveOne, Inc. - Common Stock",S
 LVOX,"LiveVox Holdings, Inc. - Class A Common Stock",S
 LVTX,LAVA Therapeutics N.V. - Ordinary Shares,S
 LWLG,"Lightwave Logic, Inc. - Common Stock",S
@@ -1305,7 +1296,6 @@ MCFT,"MasterCraft Boat Holdings, Inc. - Common Stock",S
 MCHI,iShares MSCI China ETF,E
 MCHP,Microchip Technology Incorporated - Common Stock,S
 MCHX,"Marchex, Inc. - Class B Common Stock",S
-MCRB,"Seres Therapeutics, Inc. - Common Stock",S
 MCRI,"Monarch Casino & Resort, Inc. - Common Stock",S
 MDB,"MongoDB, Inc. - Class A Common Stock",S
 MDGL,"Madrigal Pharmaceuticals, Inc. - Common Stock",S
@@ -1313,7 +1303,7 @@ MDGS,Medigus Ltd. - American Depositary Shares,S
 MDIV,Multi-Asset Diversified Income Index Fund,E
 MDLZ,"Mondelez International, Inc. - Class A Common Stock",S
 MDRX,Veradigm Inc. - common stock Status Alert: Delinquent,S
-MDVL,"MedAvail Holdings, Inc.  - Common Stock",S
+MDVL,"MedAvail Holdings, Inc.  - Common Stock Status Alert: Delinquent",S
 MDWD,MediWound Ltd. - Ordinary Shares,S
 MDXG,"MiMedx Group, Inc - Common Stock",S
 MEDP,"Medpace Holdings, Inc. - Common Stock",S
@@ -1321,7 +1311,7 @@ MEIP,"MEI Pharma, Inc. - Common Stock",S
 MELI,"MercadoLibre, Inc. - Common Stock",S
 MEOH,Methanex Corporation - Common Stock,S
 MERC,Mercer International Inc. - Common Stock,S
-MESO,Mesoblast Limited - American Depositary Shares,S
+MESA,"Mesa Air Group, Inc. - Common Stock Status Alert: Deficient",S
 META,"Meta Platforms, Inc. - Class A Common Stock",S
 METC,"Ramaco Resources, Inc. - Class A Common Stock",S
 MFIC,MidCap Financial Investment Corporation - Closed End Fund,S
@@ -1359,7 +1349,7 @@ MNOV,"MediciNova, Inc. - Common Stock",S
 MNRO,"Monro, Inc.  - Common Stock",S
 MNST,Monster Beverage Corporation - Common Stock,S
 MNTK,"Montauk Renewables, Inc. - Common Stock",S
-MNTS,Momentus Inc. - Class A Common Stock,S
+MNTS,Momentus Inc. - Class A Common Stock Status Alert: Deficient,S
 MNTX,"Manitex International, Inc. - common stock",S
 MNY,MoneyHero Limited - Class A Ordinary Shares,S
 MODV,ModivCare Inc. - Common Stock,S
@@ -1420,10 +1410,11 @@ NDAQ,"Nasdaq, Inc. - Common Stock",S
 NDLS,Noodles & Company - Common Stock,S
 NDSN,Nordson Corporation - Common Stock,S
 NECB,"NorthEast Community Bancorp, Inc. - Common Stock",S
+NEGG,"Newegg Commerce, Inc. - Common Shares",S
 NEO,"NeoGenomics, Inc. - Common Stock",S
 NEOG,Neogen Corporation - Common Stock,S
 NEON,Neonode Inc. - Common Stock,S
-NERD,Listed Funds Trust,E
+NERD,Roundhill Video Games ETF,E
 NEWT,"NewtekOne, Inc. - Common Stock",S
 NEXT,NextDecade Corporation - Common Stock,S
 NFBK,"Northfield Bancorp, Inc. - Common Stock",S
@@ -1492,7 +1483,6 @@ NZAC,SPDR MSCI ACWI Climate Paris Aligned ETF,E
 NZUS,SPDR MSCI USA Climate Paris Aligned ETF,E
 OABI,"OmniAb, Inc. - Common Stock",S
 OB,Outbrain Inc. - Common Stock,S
-OCEA,"Ocean Biomedical, Inc. - Common Stock",S
 OCFC,OceanFirst Financial Corp. - Common Stock,S
 OCG,Oriental Culture Holding LTD - Ordinary Shares,S
 OCSL,Oaktree Specialty Lending Corporation - Closed End Fund,S
@@ -1516,11 +1506,11 @@ OM,"Outset Medical, Inc. - Common Stock",S
 OMAB,Grupo Aeroportuario del Centro Norte S.A.B. de C.V. - American Depositary Shares,S
 OMCL,"Omnicell, Inc. - Common Stock",S
 OMER,Omeros Corporation - Common Stock,S
-OMEX,"Odyssey Marine Exploration, Inc. - Common Stock",S
+OMEX,"Odyssey Marine Exploration, Inc. - Common Stock Status Alert: Delinquent",S
 OMGA,"Omega Therapeutics, Inc. - Common Stock",S
 ON,ON Semiconductor Corporation - Common Stock,S
 ONB,Old National Bancorp - Common Stock,S
-ONDS,Ondas Holdings Inc. - Common Stock Status Alert: Deficient,S
+ONDS,Ondas Holdings Inc. - Common Stock,S
 ONEQ,Fidelity Nasdaq Composite Index ETF,E
 ONEW,OneWater Marine Inc. - Class A Common Stock,S
 ONVO,"Organovo Holdings, Inc. - Common Stock",S
@@ -1546,13 +1536,13 @@ OSS,"One Stop Systems, Inc. - Common Stock",S
 OSUR,"OraSure Technologies, Inc. - Common Stock",S
 OSW,OneSpaWorld Holdings Limited - Common Shares,S
 OTEX,Open Text Corporation - Common Shares,S
+OTLY,Oatly Group AB - American Depositary Shares Status Alert: Deficient,S
 OTTR,Otter Tail Corporation - Common Stock,S
 OVID,Ovid Therapeutics Inc. - Common Stock,S
 OXSQ,Oxford Square Capital Corp. - Closed End Fund,S
 OZK,Bank OZK - Common Stock,S
 PAA,"Plains All American Pipeline, L.P. - Common Units representing Limited Partner I",S
 PACB,"Pacific Biosciences of California, Inc. - Common Stock",S
-PACW,PacWest Bancorp - Common Stock,S
 PAGP,"Plains GP Holdings, L.P. - Class A Shares representing limited partner interests",S
 PAHC,Phibro Animal Health Corporation - Class A Common Stock,S
 PANL,Pangaea Logistics Solutions Ltd. - Common Stock,S
@@ -1560,6 +1550,7 @@ PANW,"Palo Alto Networks, Inc. - Common Stock",S
 PARA,Paramount Global - Class B Common Stock,S
 PARAA,Paramount Global - Class A Common Stock,S
 PATK,"Patrick Industries, Inc. - Common Stock",S
+PAVM,PAVmed Inc. - Common Stock Status Alert: Deficient,S
 PAX,Patria Investments Limited - Class A Common Shares,S
 PAYO,Payoneer Global Inc. - Common Stock,S
 PAYS,"Paysign, Inc. - Common Stock",S
@@ -1637,7 +1628,6 @@ PNQI,Invesco Nasdaq Internet ETF,E
 PNT,POINT Biopharma Global Inc.  - Common Stock,S
 PNTG,"The Pennant Group, Inc. - Common Stock",S
 PODD,Insulet Corporation - Common Stock,S
-POET,POET Technologies Inc. - Common Shares,S
 POOL,Pool Corporation - Common Stock,S
 POTX,Global X Cannabis ETF,E
 POWI,"Power Integrations, Inc. - Common Stock",S
@@ -1664,6 +1654,7 @@ PRN,Invesco Dorsey Wright Industrials Momentum ETF,E
 PROF,Profound Medical Corp. - common stock,S
 PROK,ProKidney Corp. - Class A Ordinary Shares,S
 PRPH,"ProPhase Labs, Inc. - Common Stock",S
+PRPL,"Purple Innovation, Inc. - Common Stock",S
 PRPO,"Precipio, Inc. - Common Stock",S
 PRQR,ProQR Therapeutics N.V. - Ordinary Shares,S
 PRSR,Prospector Capital Corp. - Class A Ordinary Shares Status Alert: Deficient,S
@@ -1751,9 +1742,10 @@ RBBN,Ribbon Communications Inc.  - Common Stock,S
 RBCAA,"Republic Bancorp, Inc. - Class A Common Stock",S
 RCEL,"Avita Medical, Inc. - Common Stock",S
 RCKT,"Rocket Pharmaceuticals, Inc. - Common Stock",S
-RCM,R1 RCM Inc. - Common Stock Status Alert: Delinquent,S
+RCM,R1 RCM Inc. - Common Stock,S
 RCMT,"RCM Technologies, Inc. - Common Stock",S
 RDFN,Redfin Corporation - Common Stock,S
+RDHL,Redhill Biopharma Ltd. - American Depositary Shares Status Alert: Deficient,S
 RDI,Reading International Inc - Class A Non-voting Common Stock,S
 RDNT,"RadNet, Inc. - Common Stock",S
 RDUS,"Schnitzer Steel Industries, Inc. - Class A Common Stock",S
@@ -1764,7 +1756,6 @@ REAL,"The RealReal, Inc. - Common Stock",S
 REAX,"The Real Brokerage, Inc. - Common Shares",S
 REE,REE Automotive Ltd. - Class A Ordinary Shares,S
 REFI,"Chicago Atlantic Real Estate Finance, Inc. - Common Stock",S
-REFR,Research Frontiers Incorporated - Common Stock,S
 REG,Regency Centers Corporation - Common Stock,S
 REGN,"Regeneron Pharmaceuticals, Inc. - Common Stock",S
 REKR,"Rekor Systems, Inc. - Common Stock",S
@@ -1780,9 +1771,8 @@ RGLD,"Royal Gold, Inc. - Common Stock",S
 RGLS,Regulus Therapeutics Inc. - Common Stock,S
 RGNX,REGENXBIO Inc. - Common Stock,S
 RGP,"Resources Connection, Inc. - Common Stock",S
-RGTI,"Rigetti Computing, Inc.  - Common stock",S
 RICK,"RCI Hospitality Holdings, Inc. - Common Stock",S
-RIGL,"Rigel Pharmaceuticals, Inc. - Common Stock",S
+RIGL,"Rigel Pharmaceuticals, Inc. - Common Stock Status Alert: Deficient",S
 RILY,"B. Riley Financial, Inc. - Common Stock",S
 RING,iShares MSCI Global Gold Miners ETF,E
 RIOT,"Riot Platforms, Inc. - Common Stock",S
@@ -1796,7 +1786,6 @@ RMNI,"Rimini Street, Inc. - Common Stock",S
 RMR,The RMR Group Inc. - Class A Common Stock,S
 RMTI,"Rockwell Medical, Inc. - Common Stock",S
 RNA,"Avidity Biosciences, Inc. - Common Stock",S
-RNAC,"Cartesian Therapeutics, Inc. - Common Stock",S
 RNW,ReNew Energy Global plc - Class A Shares,S
 ROAD,"Construction Partners, Inc. - Common Stock",S
 ROBT,First Trust Nasdaq Artificial Intelligence and Robotics ETF,E
@@ -1866,6 +1855,7 @@ SDGR,"Schrodinger, Inc. - Common Stock",S
 SDVY,First Trust SMID Cap Rising Dividend Achievers ETF,E
 SEAT,Vivid Seats Inc. - Class A common stock,S
 SEDG,"SolarEdge Technologies, Inc. - Common Stock",S
+SEEL,"Seelos Therapeutics, Inc. - Common Stock Status Alert: Deficient",S
 SEER,"Seer, Inc. - Class A Common Stock",S
 SEIC,SEI Investments Company - Common Stock,S
 SELF,"Global Self Storage, Inc. - Common Stock",S
@@ -1886,6 +1876,7 @@ SHEN,Shenandoah Telecommunications Co - Common Stock,S
 SHIP,Seanergy Maritime Holdings Corp. - Common Stock,S
 SHLS,"Shoals Technologies Group, Inc. - Class A Common Stock",S
 SHOO,"Steven Madden, Ltd. - Common Stock",S
+SHOT,"Safety Shot, Inc. - Common Stock",S
 SHPW,"Shapeways Holdings, Inc. - Common Stock",S
 SHV,iShares Short Treasury Bond ETF,E
 SHY,iShares 1-3 Year Treasury Bond ETF,E
@@ -1919,7 +1910,6 @@ SLP,"Simulations Plus, Inc. - Common Stock",S
 SLQD,iShares 0-5 Year Investment Grade Corporate Bond ETF,E
 SLRC,SLR Investment Corp. - Closed End Fund,S
 SLRN,"ACELYRIN, INC. - Common Stock",S
-SLS,"SELLAS Life Sciences Group, Inc.  - Common Stock",S
 SMBC,"Southern Missouri Bancorp, Inc. - Common Stock",S
 SMBK,"SmartFinancial, Inc. - Common Stock",S
 SMCI,"Super Micro Computer, Inc. - Common Stock",S
@@ -1962,7 +1952,8 @@ SPSC,"SPS Commerce, Inc. - Common Stock",S
 SPT,"Sprout Social, Inc - Class A Common Stock",S
 SPTN,SpartanNash Company - Common Stock,S
 SPWH,"Sportsman's Warehouse Holdings, Inc. - Common Stock",S
-SPWR,SunPower Corporation - Common Stock,S
+SPWR,SunPower Corporation - Common Stock Status Alert: Delinquent,S
+SQFT,"Presidio Property Trust, Inc. - Class A Common Stock Status Alert: Deficient",S
 SQQQ,ProShares UltraPro Short QQQ,E
 SRAD,Sportradar Group AG - Class A Ordinary Shares,S
 SRCE,1st Source Corporation - Common Stock,S
@@ -2013,6 +2004,7 @@ SYBX,"Synlogic, Inc. - Common Stock",S
 SYM,Symbotic Inc. - Class A Common Stock,S
 SYNA,Synaptics Incorporated - Common Stock,S
 SYPR,"Sypris Solutions, Inc. - Common Stock",S
+SYRE,"Spyre Therapeutics, Inc. - Common Stock",S
 SYRS,"Syros Pharmaceuticals, Inc. - Common Stock",S
 TACT,TransAct Technologies Incorporated - Common Stock,S
 TALK,"Talkspace, Inc. - Common Stock",S
@@ -2056,6 +2048,7 @@ THRY,"Thryv Holdings, Inc. - Common Stock",S
 THTX,Theratechnologies Inc. - Common Shares,S
 TIGO,Millicom International Cellular S.A. - Common Stock,S
 TIGR,UP Fintech Holding Limited - American Depositary Shares representing fifteen Cla,S
+TIL,"Instil Bio, Inc. - Common Stock Status Alert: Deficient",S
 TILE,"Interface, Inc. - Common Stock",S
 TIPT,Tiptree Inc. - Common Stock,S
 TITN,Titan Machinery Inc. - Common Stock,S
@@ -2111,7 +2104,7 @@ TTEC,"TTEC Holdings, Inc. - Common Stock",S
 TTEK,"Tetra Tech, Inc. - Common Stock",S
 TTGT,"TechTarget, Inc. - Common Stock",S
 TTMI,"TTM Technologies, Inc. - Common Stock",S
-TTOO,"T2 Biosystems, Inc. - Common Stock",S
+TTOO,"T2 Biosystems, Inc. - Common Stock Status Alert: Deficient",S
 TTSH,"Tile Shop Holdings, Inc. - Common Stock",S
 TTWO,"Take-Two Interactive Software, Inc. - Common Stock",S
 TUR,iShares MSCI Turkey ETF,E
@@ -2122,7 +2115,6 @@ TW,Tradeweb Markets Inc. - Class A Common Stock,S
 TWEB,SoFi Web 3 ETF,E
 TWIN,"Twin Disc, Incorporated - Common Stock",S
 TWKS,"Thoughtworks Holding, Inc. - Common Stock",S
-TWOU,"2U, Inc. - Common Stock",S
 TWST,Twist Bioscience Corporation - Common Stock,S
 TXG,"10x Genomics, Inc. - Common Stock",S
 TXMD,"TherapeuticsMD, Inc. - Common Stock",S
@@ -2134,7 +2126,6 @@ UAL,"United Airlines Holdings, Inc. - Common Stock",S
 UBFO,United Security Bancshares - Common Stock,S
 UBSI,"United Bankshares, Inc. - Common Stock",S
 UBX,"Unity Biotechnology, Inc. - Common Stock",S
-UCAR,U Power Limited - Ordinary Shares,S
 UCBI,"United Community Banks, Inc. - Common Stock",S
 UCTT,"Ultra Clean Holdings, Inc. - Common Stock",S
 UCYB,ProShares Ultra Nasdaq Cybersecurity,E
@@ -2174,7 +2165,6 @@ UTHY,US Treasury 30 Year Bond ETF,E
 UTWO,US Treasury 2 Year Note ETF,E
 UTWY,US Treasury 20 Year Bond ETF,E
 UVSP,Univest Financial Corporation - Common Stock,S
-UXIN,Uxin Limited - American Depositary Shares,S
 VBTX,"Veritex Holdings, Inc. - Common Stock",S
 VC,Visteon Corporation - Common Stock,S
 VCEL,Vericel Corporation - Common Stock,S
@@ -2183,7 +2173,6 @@ VCLT,Vanguard Long-Term Corporate Bond ETF,E
 VCSA,"Vacasa, Inc. - Class A Common Stock",S
 VCSH,Vanguard Short-Term Corporate Bond ETF,E
 VCTR,"Victory Capital Holdings, Inc. - Common Stock",S
-VCXA,10X Capital Venture Acquisition Corp. II - Class A Ordinary Share,S
 VCYT,"Veracyte, Inc. - Common Stock",S
 VECO,Veeco Instruments Inc. - Common Stock,S
 VEON,VEON Ltd. - American Depositary Shares,S
@@ -2198,7 +2187,7 @@ VGLT,Vanguard Long-Term Treasury ETF,E
 VGSH,Vanguard Short-Term Treasury ETF,E
 VIAV,Viavi Solutions Inc. - Common Stock,S
 VICR,Vicor Corporation - Common Stock,S
-VIEW,"View, Inc. - Class A Common Stock",S
+VIEW,"View, Inc. - Class A Common Stock Status Alert: Deficient",S
 VIGI,Vanguard International Dividend Appreciation ETF,E
 VINP,Vinci Partners Investments Ltd. - Class A Common Shares,S
 VIR,"Vir Biotechnology, Inc. - Common Stock",S
@@ -2306,7 +2295,6 @@ WYNN,"Wynn Resorts, Limited - Common Stock",S
 XAIR,"Beyond Air, Inc. - Common Stock",S
 XBIL,US Treasury 6 Month Bill ETF,E
 XBIT,XBiotech Inc. - Common Stock,S
-XDNA,Kelly CRISPR & Gene Editing Technology ETF,E
 XEL,Xcel Energy Inc. - Common Stock,S
 XELA,"Exela Technologies, Inc. - Common Stock Status Alert: Deficient and Delinquent",S
 XENE,Xenon Pharmaceuticals Inc. - Common Shares,S
@@ -2316,6 +2304,7 @@ XMTR,"Xometry, Inc. - Class A Common Stock",S
 XNCR,"Xencor, Inc. - Common Stock",S
 XNET,Xunlei Limited - American Depositary Shares,S
 XOMA,XOMA Corporation - Common Stock,S
+XOS,"Xos, Inc. - Common Stock Status Alert: Deficient",S
 XP,XP Inc. - Class A Common Stock,S
 XPEL,"XPEL, Inc. - Common Stock",S
 XRAY,DENTSPLY SIRONA Inc. - Common Stock,S
@@ -2465,6 +2454,7 @@ AN,"AutoNation, Inc. Common Stock",S
 ANET,"Arista Networks, Inc. Common Stock",S
 ANEW,ProShares MSCI Transformational Changes ETF,E
 ANF,Abercrombie & Fitch Company Common Stock,S
+ANVS,"Annovis Bio, Inc. Common Stock",S
 AOA,iShares Core Aggressive Allocation ETF,E
 AOM,iShares Core Moderate Allocation ETF,E
 AON,Aon plc Class A Ordinary Shares (Ireland),S
@@ -2568,7 +2558,6 @@ BA,Boeing Company (The) Common Stock,S
 BAB,Invesco Taxable Municipal Bond ETF,E
 BABA,Alibaba Group Holding Limited American Depositary Shares each representing eight,S
 BAC,Bank of America Corporation Common Stock,S
-BAD,Listed Funds Trust B.A.D. ETF,E
 BAH,Booz Allen Hamilton Holding Corporation Common Stock,S
 BALL,Ball Corporation Common Stock,S
 BALT,Innovator Defined Wealth Shield ETF,E
@@ -2624,7 +2613,6 @@ BETZ,Roundhill Sports Betting & iGaming ETF,E
 BFAM,Bright Horizons Family Solutions Inc. Common Stock,S
 BFH,"Bread Financial Holdings, Inc. Common Stock",S
 BFIX,Build Funds Trust Build Bond Innovation ETF,E
-BFLY,"Butterfly Network, Inc. Class A Common Stock",S
 BFOR,Barron's 400,E
 BFS,"Saul Centers, Inc. Common Stock",S
 BG,Bunge Limited Common Shares,S
@@ -2965,7 +2953,7 @@ CWAN,"Clearwater Analytics Holdings, Inc. Class A Common Stock",S
 CWB,SPDR Bloomberg Convertible Securities ETF,E
 CWEB,Direxion Daily CSI China Internet Index Bull 2X Shares,E
 CWEN,"Clearway Energy, Inc. Class C Common Stock",S
-CWH,Camping World Holdings Inc. Class A Common Stock,S
+CWH,"Camping World Holdings, Inc. Class A Common Stock",S
 CWI,SPDR MSCI ACWI ex-US ETF,E
 CWK,Cushman & Wakefield plc Ordinary Shares,S
 CWS,AdvisorShares Focused Equity ETF,E
@@ -2976,6 +2964,7 @@ CXT,"Crane NXT, Co. Common Stock",S
 CXW,"CoreCivic, Inc. Common Stock",S
 CYD,China Yuchai International Limited Common Stock,S
 CYH,"Community Health Systems, Inc. Common Stock",S
+CZOO,Cazoo Group Ltd Class A Ordinary Shares,S
 D,"Dominion Energy, Inc. Common Stock",S
 DAC,Danaos Corporation Common Stock,S
 DAL,"Delta Air Lines, Inc. Common Stock",S
@@ -3080,7 +3069,6 @@ DLX,Deluxe Corporation Common Stock,S
 DNA,"Ginkgo Bioworks Holdings, Inc. Class A Common Stock",S
 DNB,"Dun & Bradstreet Holdings, Inc. Common Stock",S
 DNL,WisdomTree Global ex-US Quality Dividend Growth Fund,E
-DNMR,"Danimer Scientific, Inc. Common Stock",S
 DNN,Denison Mines Corp Ordinary Shares (Canada),S
 DNOW,NOW Inc. Common Stock,S
 DO,"Diamond Offshore Drilling, Inc. Common Stock",S
@@ -3103,7 +3091,7 @@ DRD,DRDGOLD Limited American Depositary Shares,S
 DRH,Diamondrock Hospitality Company Common Stock,S
 DRI,"Darden Restaurants, Inc. Common Stock",S
 DRIP,Direxion Daily S&P Oil & Gas Exp. & Prod. Bear 2X Shares,E
-DRLL,Strive U.S. Energy ETF,E
+DRLL,EA Series Trust Strive U.S. Energy ETF,E
 DRN,Direxion Daily Real Estate Bull 3X Shares,E
 DRQ,"Dril-Quip, Inc. Common Stock",S
 DRSK,Aptus Defined Risk ETF,E
@@ -3408,7 +3396,7 @@ FLTN,Collaborative Investment Series Trust Rareview Inflation/Deflation ETF,E
 FM,iShares Frontier and Select EM ETF,E
 FMAT,Fidelity MSCI Materials Index ETF,E
 FMC,FMC Corporation Common Stock,S
-FMS,Fresenius Medical Care AG Common Stock,S
+FMS,Fresenius Medical Care AG American Depositary Shares (Each representing 1/2 of a,S
 FMX,Fomento Economico Mexicano S.A.B. de C.V. Common Stock,S
 FN,Fabrinet Ordinary Shares,S
 FNA,"Paragon 28, Inc. Common Stock",S
@@ -3526,7 +3514,6 @@ GGB,Gerdau S.A. Common Stock,S
 GGG,Graco Inc. Common Stock,S
 GGME,Invesco Next Gen Media and Gaming ETF,E
 GHI,Greystone Housing Impact Investors LP Beneficial Unit Certificates representing,S
-GHL,"Greenhill & Co., Inc. Common Stock",S
 GHM,Graham Corporation Common Stock,S
 GHYB,Goldman Sachs Access High Yield Corporate Bond ETF,E
 GIB,CGI Inc. Common Stock,S
@@ -3560,7 +3547,7 @@ GNE,Genie Energy Ltd. Class B Common Stock Stock,S
 GNK,Genco Shipping & Trading Limited Ordinary Shares New (Marshall Islands),S
 GNL,"Global Net Lease, Inc. Common Stock",S
 GNR,SPDR S&P Global Natural Resources ETF,E
-GNRC,Generac Holdings Inc. Common Stock,S
+GNRC,Generac Holdlings Inc. Common Stock,S
 GNTY,"Guaranty Bancshares, Inc. Common Stock",S
 GNW,Genworth Financial Inc Common Stock,S
 GOAU,US Global GO Gold and Precious Metal Miners ETF,E
@@ -3655,7 +3642,6 @@ HEEM,iShares Currency Hedged MSCI Emerging Markets ETF,E
 HEFA,iShares Currency Hedged MSCI EAFE ETF,E
 HEI,Heico Corporation Common Stock,S
 HELX,Franklin Genomic Advancements ETF,E
-HEP,"Holly Energy Partners, L.P. Common Stock",S
 HEQT,Simplify Hedged Equity ETF,E
 HES,Hess Corporation Common Stock,S
 HESM,Hess Midstream LP Class A Share,S
@@ -3690,7 +3676,6 @@ HNI,HNI Corporation Common Stock,S
 HOG,"Harley-Davidson, Inc. Common Stock",S
 HOMB,"Home BancShares, Inc. Common Stock",S
 HOMZ,Hoya Capital Housing ETF,E
-HOTL,Strategic Trust Kelly Hotel & Lodging Sector ETF,E
 HOUS,"Anywhere Real Estate Inc. Common Stock,",S
 HP,"Helmerich & Payne, Inc. Common Stock",S
 HPE,Hewlett Packard Enterprise Company Common Stock,S
@@ -3704,7 +3689,6 @@ HRT,HireRight Holdings Corporation Common Stock,S
 HRTG,"Heritage Insurance Holdings, Inc. Common Stock",S
 HSBC,"HSBC Holdings, plc. Common Stock",S
 HSY,The Hershey Company Common Stock,S
-HT,Hersha Hospitality Trust Class A Common Shares of Beneficial Interest,S
 HTEC,Robo Global Healthcare Technology and Innovation ETF,E
 HTGC,"Hercules Capital, Inc. Common Stock",S
 HTH,Hilltop Holdings Inc.,S
@@ -3736,6 +3720,7 @@ IAK,iShares U.S. Insurance ETF,E
 IAT,iShares U.S. Regional Banks ETF,E
 IAU,iShares Gold Trust Shares of the iShares Gold Trust,E
 IAUF,iShares Gold Strategy ETF,E
+IBIO,"iBio, Inc. Common Stock",S
 IBLC,iShares Trust iShares Blockchain and Tech ETF,E
 IBM,International Business Machines Corporation Common Stock,S
 IBN,ICICI Bank Limited Common Stock,S
@@ -3935,6 +3920,7 @@ JNPR,"Juniper Networks, Inc. Common Stock",S
 JNUG,Direxion Daily Junior Gold Miners Index Bull 2X Shares,E
 JOBY,"Joby Aviation, Inc. Common Stock",S
 JOE,St. Joe Company (The) Common Stock,S
+JOET,Virtus ETF Trust II Virtus Terranova U.S. Quality Momentum ETF,E
 JPEM,JPMorgan Diversified Return Emerging Markets Equity ETF,E
 JPIN,JPMorgan Diversified Return International Equity ETF,E
 JPM,JP Morgan Chase & Co. Common Stock,S
@@ -3980,6 +3966,7 @@ KFY,Korn Ferry Common Stock,S
 KGC,Kinross Gold Corporation Common Stock,S
 KGRN,KraneShares MSCI China Clean Technology Index ETF,E
 KGRO,KraneShares China Innovation ETF,E
+KGS,"Kodiak Gas Services, Inc. Common Stock",S
 KIE,SPDR S&P Insurance ETF,E
 KIM,Kimco Realty Corporation (HC) Common Stock,S
 KIND,"Nextdoor Holdings, Inc. Class A Common Stock",S
@@ -4302,7 +4289,7 @@ NOTE,"FiscalNote Holdings, Inc. Class A common stock",S
 NOV,NOV Inc. Common Stock,S
 NOVA,Sunnova Energy International Inc. Common Stock,S
 NOW,"ServiceNow, Inc. Common Stock",S
-NPO,EnPro Industries Inc,S
+NPO,Enpro Inc. Common Stock,S
 NPWR,NET Power Inc. Class A Common Stock,S
 NR,"Newpark Resources, Inc. Common Stock",S
 NRDY,Nerdy Inc. Class A Common Stock,S
@@ -4621,7 +4608,6 @@ REM,iShares Trust iShares Mortgage Real Estate ETF,E
 REMX,VanEck Rare Earth/Strategic Metals ETF,E
 REPX,"Riley Exploration Permian, Inc. Common Stock",S
 RES,"RPC, Inc. Common Stock",S
-RESI,Strategic Trust Kelly Residential & Apartment Real Estate ETF,E
 RETL,Direxion Daily Retail Bull 3X Shares ETF,E
 REVG,"REV Group, Inc. Common Stock",S
 REW,ProShares UltraShort Technology,E
@@ -4635,6 +4621,7 @@ RFL,"Rafael Holdings, Inc. Class B Common Stock",S
 RFV,Invesco S&P Midcap 400 Pure Value ETF,E
 RGA,"Reinsurance Group of America, Incorporated Common Stock",S
 RGR,"Sturm, Ruger & Company, Inc. Common Stock",S
+RGS,Regis Corporation Common Stock,S
 RH,RH Common Stock,S
 RHI,Robert Half Inc. Common Stock,S
 RHP,"Ryman Hospitality Properties, Inc. (REIT)",S
@@ -4656,6 +4643,7 @@ RM,Regional Management Corp. Common Stock,S
 RMAX,"RE/MAX Holdings, Inc. Class A Common Stock",S
 RMD,ResMed Inc. Common Stock,S
 RNG,"RingCentral, Inc. Class A Common Stock",S
+RNGR,"Ranger Energy Services, Inc. Class A Common Stock",S
 RNR,RenaissanceRe Holdings Ltd. Common Stock,S
 RNST,Renasant Corporation Common Stock,S
 ROBO,Exchange Traded Concepts Trust ROBO Global Robotics and Automation Index ETF,E
@@ -4798,7 +4786,7 @@ SH,ProShares Short S&P500,E
 SHAK,"Shake Shack, Inc. Class A Common Stock",S
 SHCO,Soho House & Co Inc. Class A Common Stock,S
 SHE,SPDR MSCI USA Gender Diversity ETF,E
-SHEL,Shell PLC American Depositary Shares (each representing two (2) Ordi,S
+SHEL,Shell PLC American Depositary Shares (each representing two (2) Ordinary Shares),S
 SHG,Shinhan Financial Group Co Ltd American Depositary Shares,S
 SHM,SPDR Nuveen Bloomberg Short Term Municipal Bond ETF,E
 SHO,"Sunstone Hotel Investors, Inc. Sunstone Hotel Investors, Inc. Common Shares",S
@@ -4865,6 +4853,7 @@ SMP,"Standard Motor Products, Inc. Common Stock",S
 SMR,NuScale Power Corporation Class A Common Stock,S
 SMRT,"SmartRent, Inc. Class A Common Stock",S
 SMWB,Similarweb Ltd. Ordinary Shares,S
+SN,"SharkNinja, Inc. Ordinary Shares",S
 SNA,Snap-On Incorporated Common Stock,S
 SNAP,Snap Inc. Class A Common Stock,S
 SNDR,"Schneider National, Inc. Common Stock",S
@@ -5308,7 +5297,6 @@ VPU,Vanguard Utilities ETF,E
 VRE,"Veris Residential, Inc. Common Stock",S
 VRP,Invesco Variable Rate Preferred ETF,E
 VRT,"Vertiv Holdings, LLC Class A Common Stock",S
-VRTV,Veritiv Corporation Common Stock,S
 VSCO,Victorias Secret & Co. Common Stock,S
 VSH,"Vishay Intertechnology, Inc. Common Stock",S
 VSS,Vanguard FTSE All-Wld ex-US SmCp Idx ETF,E
@@ -5377,14 +5365,13 @@ WLKP,Westlake Chemical Partners LP Common Units representing limited partner int
 WLY,"John Wiley & Sons, Inc. Common Stock",S
 WM,"Waste Management, Inc. Common Stock",S
 WMB,"Williams Companies, Inc. (The) Common Stock",S
-WMC,Western Asset Mortgage Capital Corporation Common Stock,S
 WMK,"Weis Markets, Inc. Common Stock",S
 WMS,"Advanced Drainage Systems, Inc. Common Stock",S
 WMT,Walmart Inc. Common Stock,S
 WNC,Wabash National Corporation Common Stock,S
 WNS,WNS (Holdings) Limited Sponsored ADR (Jersey),S
 WOLF,"Wolfspeed, Inc. Common Stock",S
-WOR,"Worthington Industries, Inc. Common Stock",S
+WOR,"Worthington Enterprises, Inc. Common Shares",S
 WOW,"WideOpenWest, Inc. Common Stock",S
 WPC,W. P. Carey Inc. REIT,S
 WPM,Wheaton Precious Metals Corp Common Shares (Canada),S
@@ -5500,7 +5487,6 @@ ZDGE,"Zedge, Inc. Class B Common Stock",S
 ZEPP,Zepp Health Corporation American Depositary Shares,S
 ZETA,Zeta Global Holdings Corp. Class A Common Stock,S
 ZGN,Ermenegildo Zegna N.V. Ordinary Shares,S
-ZH,Zhihu Inc. American Depositary Shares (every two of each representing one Class,S
 ZHDG,ZEGA Buy and Hedge ETF,E
 ZIM,ZIM Integrated Shipping Services Ltd. Ordinary Shares,S
 ZIP,"ZipRecruiter, Inc. Class A Common Stock",S

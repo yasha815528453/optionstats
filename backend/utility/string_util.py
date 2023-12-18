@@ -1,5 +1,6 @@
 from .date_util import DateHelper
-
+import datetime
+import json
 
 class StringHelper:
 
@@ -25,6 +26,13 @@ class StringHelper:
                         expiration_map[expDate] = data['daysToExpiration']
                         break
         return expiration_map
+
+    def json_data(self, data):
+        for dict in data:
+            for key, item in dict.items():
+                if type(item) == datetime.date:
+                    dict[key] = str(item.year) + '-' + str(item.month) + '-' + str(item.day)
+        return json.dump(data)
 
     def distribute_sql_build(self, table_name, perf_metric, perf_date, key):
         return f"""

@@ -62,6 +62,15 @@ const Overview = () => {
         fetchData();
     }, [selectedIndices]);
 
+    useEffect(() => {
+        const fetchforData = async () => {
+            const response = await fetch(`/api/stats/${indices[selectedIndices]}`);
+            const data = await response.json();
+            setStatdata(data);
+        };
+        fetchforData();
+    }, [selectedIndices]);
+
     const generalColumns = [
         { field: "SYMBOLS", headerName: "Ticker symbol",
           renderCell: (params) => (
@@ -104,30 +113,30 @@ const Overview = () => {
       ];
 
 
-    const endpoints = ["itmotmcratio", "itmotmpratio", "itmotmcoiratio", "itmotmpoiratio", "volatility"];
+    const endpoints = ["otmitmcratio", "otmitmpratio", "otmitmcoiratio", "otmitmpoiratio", "cpratio"];
     const indices = ["SPY", "DIA", "QQQ"];
 
 
     const variableMapping = [
         {
-            variable1:"itmotmcratio",
+            variable1:"otmitmcratio",
             variable2:"ITM/OTM ratio - Call Volume",
         },
         {
-            variable1:"itmotmpratio",
+            variable1:"otmitmpratio",
             variable2:"ITM/OTM ratio - Put Volume",
         },
         {
-            variable1:"itmotmcoiratio",
+            variable1:"otmitmcoiratio",
             variable2:"ITM/OTM ratio - Call OI",
         },
         {
-            variable1:"itmotmpoiratio",
+            variable1:"otmitmpoiratio",
             variable2:"ITM/OTM ratio - Put OI",
         },
         {
-            variable1:"volatility",
-            variable2:"Volatility",
+            variable1:"cpratio",
+            variable2:"call put ratio",
         },
     ]
 
@@ -169,17 +178,10 @@ const Overview = () => {
         setIndicesComponent(newValue);
       };
 
-    useEffect(() => {
-        const fetchforData = async () => {
-            const response = await fetch(`/api/overallstats`);
-            const data = await response.json();
-            setStatdata(data[0]);
-        };
-        fetchforData();
-    }, []);
+
 
     return(
-        <Box m="5px">
+        <Box m={4}>
             <Box m="10px" height = "100%">
                 <Box display="flex" justifyContent="space-between" alignItems="center">
                     <Header title="Overview" subtitle="Welcome to options insights" />
@@ -232,13 +234,13 @@ const Overview = () => {
                                                 Total Volume
                                             </th>
                                             <td class="sec-col">
-                                                {statdata.totalitmcall + statdata.totalotmcall}
+                                                {statdata.callvolume}
                                             </td>
                                             <td class="third-col">
-                                                <RatioBar variable1={statdata.totalitmcall + statdata.totalotmcall} variable2={statdata.totalitmput + statdata.totalotmput}/>
+                                                <RatioBar variable1={statdata.callvolume} variable2={statdata.putvolume}/>
                                             </td>
                                             <td class="fourth-col">
-                                                {statdata.totalitmput + statdata.totalotmput}
+                                                {statdata.putvolume}
                                             </td>
                                         </tr>
                                         <tr>
@@ -246,13 +248,13 @@ const Overview = () => {
                                                 Total Open Interest
                                             </th>
                                             <td class="sec-col">
-                                                {statdata.totalotmcoi + statdata.totalitmcoi}
+                                                {statdata.calloi}
                                             </td>
                                             <td class="third-col">
-                                                <RatioBar variable1={statdata.totalotmcoi + statdata.totalitmcoi} variable2={statdata.totalotmpoi + statdata.totalitmpoi}/>
+                                                <RatioBar variable1={statdata.calloi} variable2={statdata.putoi}/>
                                             </td>
                                             <td class="fourth-col">
-                                                {statdata.totalotmpoi + statdata.totalitmpoi}
+                                                {statdata.putoi}
                                             </td>
                                         </tr>
                                         <tr>
@@ -260,13 +262,13 @@ const Overview = () => {
                                                 ITM Volume
                                             </th>
                                             <td class="sec-col">
-                                                {statdata.totalitmcall}
+                                                {statdata.itmcallvolume}
                                             </td>
                                             <td class="third-col">
-                                                <RatioBar variable1={statdata.totalitmcall} variable2={statdata.totalitmput}/>
+                                                <RatioBar variable1={statdata.itmcallvolume} variable2={statdata.itmputvolume}/>
                                             </td>
                                             <td class="fourth-col">
-                                                {statdata.totalitmput}
+                                                {statdata.itmputvolume}
                                             </td>
                                         </tr>
                                         <tr>
@@ -274,13 +276,13 @@ const Overview = () => {
                                                 OTM Volume
                                             </th>
                                             <td class="sec-col">
-                                                {statdata.totalotmcall}
+                                                {statdata.otmcallvolume}
                                             </td>
                                             <td class="third-col">
-                                                <RatioBar variable1={statdata.totalotmcall} variable2={statdata.totalotmput}/>
+                                                <RatioBar variable1={statdata.otmcallvolume} variable2={statdata.otmputvolume}/>
                                             </td>
                                             <td class="fourth-col">
-                                                {statdata.totalotmput}
+                                                {statdata.otmputvolume}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -302,13 +304,13 @@ const Overview = () => {
                                                 Avg Volume
                                             </th>
                                             <td class="sec-col">
-                                                {statdata.avgtotalitmcall + statdata.avgtotalotmcall}
+                                                {statdata.volume}
                                             </td>
                                             <td class="third-col">
-                                                <RatioBar variable1={statdata.avgtotalitmcall + statdata.avgtotalotmcall} variable2={statdata.avgtotalitmput + statdata.avgtotalotmput}/>
+                                                <RatioBar variable1={statdata.volume} variable2={statdata.avgvolume}/>
                                             </td>
                                             <td class="fourth-col">
-                                                {statdata.avgtotalitmput + statdata.avgtotalotmput}
+                                                {statdata.avgvolume}
                                             </td>
                                         </tr>
                                         <tr>
@@ -316,41 +318,27 @@ const Overview = () => {
                                                 Avg Open Interest
                                             </th>
                                             <td class="sec-col">
-                                                {statdata.avgtotalotmcoi + statdata.avgtotalitmcoi}
+                                                {statdata.oi}
                                             </td>
                                             <td class="third-col">
-                                                <RatioBar variable1={statdata.avgtotalotmcoi + statdata.avgtotalitmcoi} variable2={statdata.avgtotalotmpoi + statdata.avgtotalitmpoi}/>
+                                                <RatioBar variable1={statdata.oi} variable2={statdata.avgoi}/>
                                             </td>
                                             <td class="fourth-col">
-                                                {statdata.avgtotalotmpoi + statdata.avgtotalitmpoi}
+                                                {statdata.avgoi}
                                             </td>
                                         </tr>
                                         <tr>
                                             <th class="first-col">
-                                                Avg ITM Volume
+                                                Volatility
                                             </th>
                                             <td class="sec-col">
-                                                {statdata.avgtotalitmcall}
+                                                {statdata.volatility}
                                             </td>
                                             <td class="third-col">
-                                                <RatioBar variable1={statdata.avgtotalitmcall} variable2={statdata.avgtotalitmput}/>
+                                                <RatioBar variable1={statdata.volatility} variable2={statdata.avgvola}/>
                                             </td>
                                             <td class="fourth-col">
-                                                {statdata.avgtotalitmput}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th class="first-col">
-                                                Avg OTM Volume
-                                            </th>
-                                            <td class="sec-col">
-                                                {statdata.avgtotalotmcall}
-                                            </td>
-                                            <td class="third-col">
-                                                <RatioBar variable1={statdata.avgtotalotmcall} variable2={statdata.avgtotalotmput}/>
-                                            </td>
-                                            <td class="fourth-col">
-                                                {statdata.avgtotalotmput}
+                                                {statdata.avgvola}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -374,7 +362,7 @@ const Overview = () => {
                                             <option value="2">ITM/OTM ratio - Put Volume</option>
                                             <option value="3">ITM/OTM ratio - Call OI</option>
                                             <option value="4">ITM/OTM ratio - Put OI</option>
-                                            <option value="5">Volatility</option>
+                                            <option value="5">Call-Put ratio</option>
                                         </select>
                                     </Box>
 

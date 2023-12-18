@@ -27,6 +27,12 @@ class FileHelper:
             data = tdaclient.get_optionchain(symb)
             if data == None:
                 pass
+            elif data['underlying']['description'] == "Symbol not found":
+                pass
+            elif data['underlying']['mark'] == None:
+                pass
+            elif len(data['putExpDateMap']) == 0:
+                pass
             else:
                 optional_list.append(symb)
 
@@ -34,7 +40,7 @@ class FileHelper:
         good_list = []
         for sym in optional_list:
             data = tdaclient.get_quote(sym)
-            if data == None or data[sym]['closePrice'] < 0.7:
+            if data == None or data[sym]['closePrice'] < 1.1:
                 pass
             else:
                 good_list.append([sym, data[sym]["description"], 'S' if data[sym]['assetType'] == "EQUITY" else 'E'])

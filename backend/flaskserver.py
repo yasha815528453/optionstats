@@ -2,102 +2,79 @@ from dotenv import load_dotenv
 load_dotenv()
 from flask import Flask, g, request
 import tdamodule.tdamethods
-import database.methods as DBmethods
+from database.database_client import DbReadingManager, DbWritingManager
 from flask import jsonify
-from database.methods import DbWritingManager, DbReadingManager
+import json
 
-app = Flask("OPTIONSTATS")
 DBWriteManager = DbWritingManager()
 DBReadManager = DbReadingManager()
+app = Flask("OPTIONSTATS")
 
-@app.before_request
-def before_read_request():
-    if request.endpoint == 'skip_route':
-        return
-    g.DBconnection = DbReadingManager.acquire_connection()
 
-@app.after_request
-def after_read_request():
-    DbReadingManager.release_connection(g.DBconnection)
-
-@app.route('/api/overallstats')
-def get_overallstats():
+@app.route('/api/stats/<symbol>')
+def get_stats(symbol):
     try:
-        connection = DBmethods.acquire_connection()
-        stats = DBmethods.get_overallstats(connection)
+
+        stats = DBReadManager.get_stats(symbol)
 
         return stats
-    finally:
-        DBmethods.release_connection(connection)
+    except Exception as e:
+        print(e)
 
 @app.route('/api/top10/<order>/<value>')
 def get_topten(order, value):
-    try:
-        connection = DBmethods.acquire_connection()
-        top10 = DBmethods.get_topten(connection, order, value)
 
-        return top10
-    finally:
-        DBmethods.release_connection(connection)
+    try:
+        top10 = DBReadManager.get_top_10(order, value)
+
+        return json.dumps(top10)
+    except Exception as e:
+        print(e)
+
 
 
 @app.route('/api/sectors')
 def get_sectors():
     try:
-        connection = DBmethods.acquire_connection()
-        sectors = DBmethods.get_sector(connection)
-
+        sectors = DBReadManager.get_sector_aggre()
         return sectors
-    finally:
-        DBmethods.release_connection(connection)
+    except Exception as e:
+        print(e)
 
 @app.route('/api/<table>')
 def gettable(table):
     try:
-        connection = DBmethods.acquire_connection()
-        print("connection acquired")
-        data = DBmethods.getTableJson(table, connection)
-        print("data got")
+        data = DBReadManager.get_table_json(table)
+
         return data
     # return json format, like
     # return {'data': data}, need to make sure what json format react table requires.
-    finally:
-        print("releasing connection back to pool")
-        DBmethods.release_connection(connection)
+    except Exception as e:
+        print(e)
+
 
 @app.route('/api/timestamp')
 def getTime():
     try:
-        connection = DBmethods.acquire_connection()
-        timestamp = DBmethods.get_timestamp(connection)
+
+        timestamp = DBReadManager.get_time_stamp()
         return timestamp
-    finally:
-        DBmethods.release_connection(connection)
+    except Exception as e:
+        print(e)
 
 @app.route('/api/expectation/<symbol>')
 def get_expectation(symbol):
     try:
-        connection = DBmethods.acquire_connection()
-        chartdata = DBmethods.get_chartdata(symbol, connection)
-        stockdata = DBmethods.get_stock_info(symbol, connection)
+
+        chartdata = DBReadManager.get_expec_chart(symbol)
+        stockdata = DBReadManager.get_stock_info(symbol)
         result = {
             'chartdata': chartdata,
-            'stockdata': stockdata.get_json()
+            'stockdata': stockdata,
         }
-        return result
+        return json.dumps(result)
     except Exception as e:
         print(e)
-    finally:
-        DBmethods.release_connection(connection)
-
-@app.route('/api/oitable/<symbol>')
-def get_oitable(symbol):
-    try:
-        connection = DBmethods.acquire_connection()
-        oitable = DBmethods.get_oitable(symbol, connection)
-        return oitable
-    finally:
-        DBmethods.release_connection(connection)
 
 
 if __name__ == "__main__":

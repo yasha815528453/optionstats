@@ -9,7 +9,7 @@ import SearchBar from "../../components/searchbar";
 import { color } from "@mui/system";
 import PcChart from "../../components/echarts";
 import { Tabs, Tab } from "@mui/material";
-import Heatmp from "../../components/heatmap";
+import RatioBar from "../../components/ratiobar/Ratiobar";
 
 const Expectationschart = () => {
     const [cdata, setCdata] = useState({
@@ -29,7 +29,7 @@ const Expectationschart = () => {
         ]
       });
 
-    const [oidata, setOidata] = useState([]);
+    const [statdata, setStatdata] = useState([]);
     const [searchTerm, setSearchTerm] = useState('SPY');
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
@@ -41,9 +41,9 @@ const Expectationschart = () => {
                 const response = await fetch(`/api/expectation/${searchTerm}`);
                 const data = await response.json();
                 setCdata(data);
-                const response2 = await fetch(`/api/oitable/${searchTerm}`);
+                const response2 = await fetch(`/api/stats/${searchTerm}`);
                 const data2 = await response2.json();
-                setOidata(data2);
+                setStatdata(data2);
             }
         };
         fetchData();
@@ -58,7 +58,7 @@ const Expectationschart = () => {
       };
 
     return (
-        <Box m="5px">
+        <Box m={4}>
             <Box m="10px" height="100%">
                 <Box display="flex" justifyContent="space-between" alignItems="center" width="53%">
                     <Header title="Trend expectation" subtitle="Expectations of dollar movement based on options pricing" />
@@ -103,9 +103,7 @@ const Expectationschart = () => {
                             <Tab label="Expectation"/>
                             <Tab label="Open Interest Heatmap"/>
                         </Tabs>
-                        {selecttable === 0 ? (
-                                <PcChart symbol={cdata.stockdata[0].symbol} backenddata={cdata || { chartdata: { result: [] } }} h={"57vh"} w={"125vh"}/>)
-                                : ( <Heatmp backenddata={oidata}/>)}
+                        <PcChart symbol={cdata.stockdata[0].symbol} backenddata={cdata || { chartdata: { result: [] } }} h={"57vh"} w={"125vh"}/>
                 </Box>
 
 
@@ -121,11 +119,79 @@ const Expectationschart = () => {
                     <Typography
                         variant = "h4"
                         color={colors.grey[100]}
-                        margin="10px"
+                        margin="4vh"
                     >
                         This stock is in the category of {cdata.stockdata[0].category}
                     </Typography>
 
+                    <table className="table-container" margin={1}>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" class="first-col"></th>
+                                            <th scope="col" class="sec-col">Calls</th>
+                                            <th scope="col" class="third-col"></th>
+                                            <th scope="col" class="fourth-col">Puts</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th class="first-col">
+                                                Total Volume
+                                            </th>
+                                            <td class="sec-col">
+                                                {statdata.callvolume}
+                                            </td>
+                                            <td class="third-col">
+                                                <RatioBar variable1={statdata.callvolume} variable2={statdata.putvolume}/>
+                                            </td>
+                                            <td class="fourth-col">
+                                                {statdata.putvolume}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="first-col">
+                                                Total Open Interest
+                                            </th>
+                                            <td class="sec-col">
+                                                {statdata.calloi}
+                                            </td>
+                                            <td class="third-col">
+                                                <RatioBar variable1={statdata.calloi} variable2={statdata.putoi}/>
+                                            </td>
+                                            <td class="fourth-col">
+                                                {statdata.putoi}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="first-col">
+                                                Volatility
+                                            </th>
+                                            <td class="sec-col">
+                                                {statdata.volatility}
+                                            </td>
+                                            <td class="third-col">
+                                                <RatioBar variable1={statdata.volatility} variable2={statdata.avgvola}/>
+                                            </td>
+                                            <td class="fourth-col">
+                                                {statdata.avgvola}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="first-col">
+                                                OTM Volume
+                                            </th>
+                                            <td class="sec-col">
+                                                {statdata.otmcallvolume}
+                                            </td>
+                                            <td class="third-col">
+                                                <RatioBar variable1={statdata.otmcallvolume} variable2={statdata.otmputvolume}/>
+                                            </td>
+                                            <td class="fourth-col">
+                                                {statdata.otmputvolume}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
 
                     {cdata.chartdata.ispositive ? (
                         <Typography
