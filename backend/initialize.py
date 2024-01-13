@@ -15,37 +15,40 @@ def initialize():
     DBwriter = database_client.DbWritingManager()
     stockHelper = StockHelper()
     TDAclient = tdamethods.TdaClient()
-    fileHelper.create_optional_stocks_csv()
+    # fileHelper.create_optional_stocks_csv()
     Optionhelper = OptionsAnalyzer(DBwriter)
     optional_stock = fileHelper.get_optional_stock_list()
 
     for stock in optional_stock:
-        print(stock)
-        option_data = TDAclient.get_optionchain(stock['symbol'])
+        try:
+            print(stock)
+            option_data = TDAclient.get_optionchain(stock['symbol'])
 
-        if type(option_data['underlyingPrice']) == float:
-            stock_price = option_data['underlyingPrice']
-        else:
-            continue
-        option_size = stockHelper.useful_options_size(option_data)
-        DBwriter.init_specu_ratio(stock['symbol'])
-        # if common stock
-        if stock['type'] == 'S':
-            sector, industry, country = scraper.get_sector_industry_country(stock['symbol'])
-            DBwriter.insert_ticker_common((stock['symbol'], sector, industry, country,
-                                                option_size, stock['description'], 0, 0, stock_price))
-            DBwriter.init_option_perf(stock['symbol'], stock['type'])
-            DBwriter.init_option_stats(stock['symbol'], stock['type'])
+            if type(option_data['underlyingPrice']) == float:
+                stock_price = option_data['underlyingPrice']
+            else:
+                continue
+            option_size = stockHelper.useful_options_size(option_data)
+            DBwriter.init_specu_ratio(stock['symbol'])
+            # if common stock
+            if stock['type'] == 'S':
+                sector, industry, country = scraper.get_sector_industry_country(stock['symbol'])
+                DBwriter.insert_ticker_common((stock['symbol'], sector, industry, country,
+                                                    option_size, stock['description'], 0, 0, stock_price))
+                DBwriter.init_option_perf(stock['symbol'], stock['type'])
+                DBwriter.init_option_stats(stock['symbol'], stock['type'])
 
-        # ETFs
-        else:
-            category = scraper.get_category(stock['symbol'])
-            DBwriter.insert_ticker_etf((stock['symbol'], category, option_size, stock['description'], 0, 0, stock_price))
-            DBwriter.init_option_perf(stock['symbol'], stock['type'])
-            DBwriter.init_option_stats(stock['symbol'], stock['type'])
+            # ETFs
+            else:
+                category = scraper.get_category(stock['symbol'])
+                DBwriter.insert_ticker_etf((stock['symbol'], category, option_size, stock['description'], 0, 0, stock_price))
+                DBwriter.init_option_perf(stock['symbol'], stock['type'])
+                DBwriter.init_option_stats(stock['symbol'], stock['type'])
 
-        sized_options_data = TDAclient.get_optionchain(stock['symbol'], option_size)
-        Optionhelper.initial_api_options_break(sized_options_data)
+            sized_options_data = TDAclient.get_optionchain(stock['symbol'], option_size)
+            Optionhelper.initial_api_options_break(sized_options_data)
+        except Exception as e:
+            pass
 
 
 initialize()

@@ -33,41 +33,40 @@ optionsHelper = analytics.OptionsAnalyzer(DBwriter, DBreader)
 Stringhelper = string_util.StringHelper()
 
 
-# if marketopen:
-batch = 100
-interest_rate = TDAclient.get_optionchain("SPY")['interestRate']
-etf_records = DBreader.get_all('tickerse')
-for i in range(0, len(etf_records), 100):
-
-    stock_list = [etf_record['SYMBOLS'] for etf_record in etf_records[i:i+100]]
-    mapping = {}
-    for stock in stock_list:
-        try:
-            option_size = DBreader.get_one_val("tickerse", "SYMBOLS", stock, "OptionSize")
-            options_data = TDAclient.get_optionchain(stock, option_size)
-            optionsHelper.daily_api_options_breakdown(options_data)
-            update_info = (options_data['underlying']['change'], options_data['underlying']['percentChange'], options_data['underlying']['close'], stock)
-            DBwriter.update_ticker('tickerse', update_info)
-            expiration_map = Stringhelper.create_key_expiration(options_data)
-            mapping[stock] = expiration_map
-        except Exception as e:
-            print(e)
-    options_sorted = DBreader.get_options_sorted_batch(stock_list)
-    df = pd.DataFrame(options_sorted)
-    for stock in stock_list:
-        try:
-            stock_info = df[df['SYMBOLS'] == stock]
-            closingprice = DBreader.get_one_val("tickerse", "SYMBOLS", stock, "closingprice")
-            expiration_map = mapping[stock]
-            optionsHelper.option_perf_aggregate(stock, stock_info.copy())
-            optionsHelper.option_stats_aggregate(stock_info.copy(), stock)
-            optionsHelper.speculative_ratio(stock)
-            optionsHelper.price_skews_bydate(stock, interest_rate, closingprice, expiration_map, stock_info)
-        except Exception as e:
-            print(stock)
-            tb = traceback.format_exc()
-            print(tb)
-            print(e)
+if marketopen:
+    batch = 100
+    interest_rate = TDAclient.get_optionchain("SPY")['interestRate']
+    etf_records = DBreader.get_all('tickerse')
+    for i in range(0, len(etf_records), 100):
+        stock_list = [etf_record['SYMBOLS'] for etf_record in etf_records[i:i+100]]
+        mapping = {}
+        for stock in stock_list:
+            try:
+                option_size = DBreader.get_one_val("tickerse", "SYMBOLS", stock, "OptionSize")
+                options_data = TDAclient.get_optionchain(stock, option_size)
+                optionsHelper.daily_api_options_breakdown(options_data)
+                update_info = (options_data['underlying']['change'], options_data['underlying']['percentChange'], options_data['underlying']['close'], stock)
+                DBwriter.update_ticker('tickerse', update_info)
+                expiration_map = Stringhelper.create_key_expiration(options_data)
+                mapping[stock] = expiration_map
+            except Exception as e:
+                print(e)
+        options_sorted = DBreader.get_options_sorted_batch(stock_list)
+        df = pd.DataFrame(options_sorted)
+        for stock in stock_list:
+            try:
+                stock_info = df[df['SYMBOLS'] == stock]
+                closingprice = DBreader.get_one_val("tickerse", "SYMBOLS", stock, "closingprice")
+                expiration_map = mapping[stock]
+                optionsHelper.option_perf_aggregate(stock, stock_info.copy())
+                optionsHelper.option_stats_aggregate(stock_info.copy(), stock)
+                optionsHelper.speculative_ratio(stock)
+                optionsHelper.price_skews_bydate(stock, interest_rate, closingprice, expiration_map, stock_info)
+            except Exception as e:
+                print(stock)
+                tb = traceback.format_exc()
+                print(tb)
+                print(e)
 
 
     normal_stocks = DBreader.get_all('tickerss')
@@ -109,7 +108,7 @@ for i in range(0, len(etf_records), 100):
     DBwriter.decrement_expire_day()
 
 
-# else:
-#     #no update
-#     DBwriter.decrement_expire_day()
-#     DBwriter.delete_expired_options()
+else:
+    #no update
+    DBwriter.decrement_expire_day()
+    DBwriter.delete_expired_options()

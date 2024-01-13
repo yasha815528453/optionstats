@@ -278,29 +278,31 @@ class OptionsAnalyzer:
 
 
         for expiry, option_data in options_by_exp.items():
-            price_skew, callvol, putvol, count = 0, 0, 0, 0
+            try:
+                price_skew, callvol, putvol, count = 0, 0, 0, 0
 
-            call_options = option_data['calls']
+                call_options = option_data['calls']
 
-            put_options = option_data['puts']
-            price_diff = self._diff_from_equil(call_options, put_options, closingprice)
+                put_options = option_data['puts']
+                price_diff = self._diff_from_equil(call_options, put_options, closingprice)
 
-            compiledate = expiry
+                compiledate = expiry
 
-            for i in range(min(len(call_options), len(put_options))):
-                count += 1
-                calls_adjusted = calculator.calc_adjust_option(call_options[i]['marketprice'], price_diff, call_options[i]['delta'],
-                                                                call_options[i]['gamma'], call_options[i]['rho'], interest_rate)
-                puts_adjusted = calculator.calc_adjust_option(put_options[-i]['marketprice'], price_diff, put_options[-i]['delta'],
-                                                                put_options[-i]['gamma'], put_options[-i]['rho'], interest_rate)
-                price_skew += calls_adjusted - puts_adjusted
-                callvol += call_options[i]['volume']
-                putvol += put_options[i]['volume']
-            if count == 0:
-                count = 1
-            data = (date_today, symbol, compiledate, price_skew/count, callvol, putvol)
-            self.write_db_manager.insert_date_aggre(data)
-
+                for i in range(min(len(call_options), len(put_options))):
+                    count += 1
+                    calls_adjusted = calculator.calc_adjust_option(call_options[i]['marketprice'], price_diff, call_options[i]['delta'],
+                                                                    call_options[i]['gamma'], call_options[i]['rho'], interest_rate)
+                    puts_adjusted = calculator.calc_adjust_option(put_options[-i]['marketprice'], price_diff, put_options[-i]['delta'],
+                                                                    put_options[-i]['gamma'], put_options[-i]['rho'], interest_rate)
+                    price_skew += calls_adjusted - puts_adjusted
+                    callvol += call_options[i]['volume']
+                    putvol += put_options[i]['volume']
+                if count == 0:
+                    count = 1
+                data = (date_today, symbol, compiledate, price_skew/count, callvol, putvol)
+                self.write_db_manager.insert_date_aggre(data)
+            except Exception as e:
+                print(e)
 
     def _diff_from_equil(self, calls, puts, closingprice):
 

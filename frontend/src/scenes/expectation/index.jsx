@@ -101,7 +101,6 @@ const Expectationschart = () => {
                         gridColumnEnd: 'span 16',}}>
                         <Tabs value={selecttable} onChange={handleTabChange} textColor="secondary" indicatorColor="secondary" >
                             <Tab label="Expectation"/>
-                            <Tab label="Open Interest Heatmap"/>
                         </Tabs>
                         <PcChart symbol={cdata.stockdata[0].symbol} backenddata={cdata || { chartdata: { result: [] } }} h={"57vh"} w={"125vh"}/>
                 </Box>
@@ -110,7 +109,7 @@ const Expectationschart = () => {
 
                 <Box sx={{
                     gridColumn:'13',
-                    gridRow: '6 / span 3',
+                    gridRow: '5 / span 3',
                     gridColumnEnd: 'span 3',
                 }}
                     border="4px solid"
