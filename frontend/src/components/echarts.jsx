@@ -85,7 +85,7 @@ const PcChart = ({symbol, backenddata, h, w}) => {
             },
             {
                 type:'value',
-                name:'Expected Dollar Movement',
+                name:'Expected $ Movement',
                 position:'left',
                 axisLabel: {
                     formatter:' {value} $'
