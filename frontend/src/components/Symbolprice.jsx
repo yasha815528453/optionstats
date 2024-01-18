@@ -72,7 +72,7 @@ const Symbol = ({ description, closingprice, pricechange, percentchange }) => {
                         variant = "h6"
                         color={colors.grey[300]}
                     >
-                        Last Updated {timestamp.timestamp} PDT
+                        Last Updated {timestamp.timestamp} UTC
                         End of day quote
                     </Typography>
         </Box>
