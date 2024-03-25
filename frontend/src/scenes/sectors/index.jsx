@@ -45,7 +45,7 @@ const Sectors = () => {
           renderCell: (params) => (
 
           <div className="MuiDataGrid-large"
-          style={{ width: "100%", height:"100%", color: params.row.percentchange < 0 ? colors.redAccent[400] : colors.greenAccent[400]}}
+          style={{ width: "100%", height:"100%", color: params.row.avgperf < 0 ? colors.redAccent[400] : colors.greenAccent[400]}}
           >
             {params.value >= 0 ? `+${params.value}` : params.value}%
           </div>

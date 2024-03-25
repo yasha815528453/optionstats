@@ -348,14 +348,20 @@ class DbReadingManager:
         with self.acquire_connection() as connection:
 
             SQLstmt = '''
-            SELECT t1.compiledate, t1.pcdiff, t1.putvol, t1.callvol, t2.pcdiff AS 10pcdiff
+            SELECT t1.compiledate, t1.pcdiff, t1.putvol, t1.callvol, t2.pcdiff AS prev_pcdiff
             FROM dstock AS t1
-            JOIN dstock AS t2 ON t1.symbol = t2.symbol AND t1.compiledate = t2.compiledate
-            WHERE t1.symbol = %s AND t1.record_date = (SELECT MAX(record_date) FROM dstock)
-            AND t2.record_date = (SELECT MAX(record_date) FROM dstock
-            WHERE record_date < DATE_SUB((SELECT MAX(record_date) FROM dstock), INTERVAL 5 DAY));
+            JOIN dstock AS t2
+                ON t1.symbol = t2.symbol
+                AND t1.compiledate = t2.compiledate
+                AND t1.record_date = (SELECT MAX(record_date) FROM dstock WHERE symbol = %s)
+                AND t2.record_date = (
+                    SELECT MAX(record_date)
+                    FROM dstock
+                    WHERE symbol = '%s AND record_date < (SELECT MAX(record_date) FROM dstock WHERE symbol = %s)
+                )
+            WHERE t1.symbol = %s;
             '''
-            result = self._execute_sql(connection, SQLstmt, (symbol, ))
+            result = self._execute_sql(connection, SQLstmt, (symbol, symbol, symbol, symbol))
             positive = 0
             for dict in result:
                 positive += dict['pcdiff']
