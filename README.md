@@ -5,9 +5,12 @@ A dashboard presenting key metrics on options data, giving each day's most valua
 Chart shows a bias in options pricing, giving some value to forecasting future price actions.
 
 #### Technology used:
-Python, Flask, React, Mysql
+Python & Flask for server side logic.
+React for responsive UI/UX
+MySQL for data storage and management
+Deployed onto Digital Ocean with Nginx and Gunicorn
 
-#to visit app
+#### to visit app
 http://167.99.6.196/
 
 #### Example visualizations.
