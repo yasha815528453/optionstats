@@ -9,3 +9,6 @@ Python, Flask, React, Mysql
 
 #to visit app
 http://167.99.6.196/
+
+#### Example visualizations.
+![image](https://github.com/yasha815528453/optionstats/assets/63821244/832d523d-43dc-46ab-8408-0c0b27fed97c)
