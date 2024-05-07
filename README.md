@@ -1,5 +1,5 @@
 ## Options insight web app
-
+Upgrading features currently..
 #### Overview
 A dashboard presenting key metrics on options data, giving each day's most valuable insights based on the options market.
 Chart shows a bias in options pricing, giving some value to forecasting future price actions.
